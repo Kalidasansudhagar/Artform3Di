@@ -1,0 +1,117 @@
+{
+  "_cormorant-garamond-300-italic-DRnsRYID.woff": {
+    "file": "assets/cormorant-garamond-300-italic-DRnsRYID.woff",
+    "src": "_cormorant-garamond-300-italic-DRnsRYID.woff"
+  },
+  "_cormorant-garamond-300-italic-qkwBXYHn.woff2": {
+    "file": "assets/cormorant-garamond-300-italic-qkwBXYHn.woff2",
+    "src": "_cormorant-garamond-300-italic-qkwBXYHn.woff2"
+  },
+  "_cormorant-garamond-300-normal-BuXLI6C0.woff": {
+    "file": "assets/cormorant-garamond-300-normal-BuXLI6C0.woff",
+    "src": "_cormorant-garamond-300-normal-BuXLI6C0.woff"
+  },
+  "_cormorant-garamond-300-normal-Cw-E_7L1.woff2": {
+    "file": "assets/cormorant-garamond-300-normal-Cw-E_7L1.woff2",
+    "src": "_cormorant-garamond-300-normal-Cw-E_7L1.woff2"
+  },
+  "_cormorant-garamond-400-italic-BLh7T8o8.woff": {
+    "file": "assets/cormorant-garamond-400-italic-BLh7T8o8.woff",
+    "src": "_cormorant-garamond-400-italic-BLh7T8o8.woff"
+  },
+  "_cormorant-garamond-400-italic-Dc_OZ8oc.woff2": {
+    "file": "assets/cormorant-garamond-400-italic-Dc_OZ8oc.woff2",
+    "src": "_cormorant-garamond-400-italic-Dc_OZ8oc.woff2"
+  },
+  "_cormorant-garamond-400-normal-B-1hWBU7.woff2": {
+    "file": "assets/cormorant-garamond-400-normal-B-1hWBU7.woff2",
+    "src": "_cormorant-garamond-400-normal-B-1hWBU7.woff2"
+  },
+  "_cormorant-garamond-400-normal-B7YtguxJ.woff": {
+    "file": "assets/cormorant-garamond-400-normal-B7YtguxJ.woff",
+    "src": "_cormorant-garamond-400-normal-B7YtguxJ.woff"
+  },
+  "_cormorant-garamond-500-italic-DhNIfkTX.woff": {
+    "file": "assets/cormorant-garamond-500-italic-DhNIfkTX.woff",
+    "src": "_cormorant-garamond-500-italic-DhNIfkTX.woff"
+  },
+  "_cormorant-garamond-500-italic-Y14P-dkT.woff2": {
+    "file": "assets/cormorant-garamond-500-italic-Y14P-dkT.woff2",
+    "src": "_cormorant-garamond-500-italic-Y14P-dkT.woff2"
+  },
+  "_cormorant-garamond-500-normal-BsRWmXhO.woff2": {
+    "file": "assets/cormorant-garamond-500-normal-BsRWmXhO.woff2",
+    "src": "_cormorant-garamond-500-normal-BsRWmXhO.woff2"
+  },
+  "_cormorant-garamond-500-normal-zIXX3Q-H.woff": {
+    "file": "assets/cormorant-garamond-500-normal-zIXX3Q-H.woff",
+    "src": "_cormorant-garamond-500-normal-zIXX3Q-H.woff"
+  },
+  "_fonts-B3FKusko.css": {
+    "file": "assets/fonts-B3FKusko.css",
+    "src": "_fonts-B3FKusko.css"
+  },
+  "_jetbrains-mono-400-normal-6-qcROiO.woff": {
+    "file": "assets/jetbrains-mono-400-normal-6-qcROiO.woff",
+    "src": "_jetbrains-mono-400-normal-6-qcROiO.woff"
+  },
+  "_jetbrains-mono-400-normal-V6pRDFza.woff2": {
+    "file": "assets/jetbrains-mono-400-normal-V6pRDFza.woff2",
+    "src": "_jetbrains-mono-400-normal-V6pRDFza.woff2"
+  },
+  "_manrope-400-normal-8tf8FM3T.woff": {
+    "file": "assets/manrope-400-normal-8tf8FM3T.woff",
+    "src": "_manrope-400-normal-8tf8FM3T.woff"
+  },
+  "_manrope-400-normal-PaqtzbVb.woff2": {
+    "file": "assets/manrope-400-normal-PaqtzbVb.woff2",
+    "src": "_manrope-400-normal-PaqtzbVb.woff2"
+  },
+  "_manrope-500-normal-BYYD-dBL.woff2": {
+    "file": "assets/manrope-500-normal-BYYD-dBL.woff2",
+    "src": "_manrope-500-normal-BYYD-dBL.woff2"
+  },
+  "_manrope-500-normal-DMZssgOp.woff": {
+    "file": "assets/manrope-500-normal-DMZssgOp.woff",
+    "src": "_manrope-500-normal-DMZssgOp.woff"
+  },
+  "_manrope-600-normal-4f0koTD-.woff2": {
+    "file": "assets/manrope-600-normal-4f0koTD-.woff2",
+    "src": "_manrope-600-normal-4f0koTD-.woff2"
+  },
+  "_manrope-600-normal-BqgrALkZ.woff": {
+    "file": "assets/manrope-600-normal-BqgrALkZ.woff",
+    "src": "_manrope-600-normal-BqgrALkZ.woff"
+  },
+  "node_modules/@google/model-viewer/lib/model-viewer.js": {
+    "file": "assets/model-viewer-D1cNYYtj.js",
+    "name": "model-viewer",
+    "src": "node_modules/@google/model-viewer/lib/model-viewer.js",
+    "isDynamicEntry": true
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-DN6VXzm2.css",
+    "name": "app",
+    "names": [
+      "app.css"
+    ],
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/js/admin/revenue-chart.js": {
+    "file": "assets/revenue-chart-COmvq_on.js",
+    "name": "revenue-chart",
+    "src": "resources/js/admin/revenue-chart.js",
+    "isDynamicEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-BN_FwcCH.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "dynamicImports": [
+      "node_modules/@google/model-viewer/lib/model-viewer.js",
+      "resources/js/admin/revenue-chart.js"
+    ]
+  }
+}

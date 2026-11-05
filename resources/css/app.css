@@ -1,0 +1,646 @@
+@import 'tailwindcss';
+@import 'swiper/css';
+
+@source '../../storage/framework/views/*.php';
+@source '../views/**/*.blade.php';
+@source '../js/**/*.js';
+
+@theme inline {
+    --font-display: var(--ff-display);
+    --font-sans: var(--ff-sans);
+    --font-mono: var(--ff-mono);
+}
+
+@theme {
+    /* Brand palette — deep charcoal, matte black, warm white, soft grey, muted metal */
+    --color-ink: #0c0c0d;
+    --color-coal: #141416;
+    --color-char: #1c1c1f;
+    --color-graphite: #2a2a2e;
+    --color-smoke: #8a867e;
+    --color-mist: #c8c3b9;
+    --color-bone: #ece7df;
+    --color-paper: #f7f4ee;
+    --color-brass: #b59a6d;
+    --color-brass-soft: #d6c4a0;
+    --color-steel: #8fa0ae;
+    --color-deep: #0d1114;
+
+    --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-silk: cubic-bezier(0.65, 0, 0.35, 1);
+
+    --text-display-1: clamp(3rem, 8.2vw, 8.75rem);
+    --text-display-1--line-height: 0.92;
+    --text-display-2: clamp(2.5rem, 5.4vw, 5.75rem);
+    --text-display-2--line-height: 0.98;
+    --text-display-3: clamp(2rem, 3.6vw, 3.75rem);
+    --text-display-3--line-height: 1.04;
+    --text-display-4: clamp(1.6rem, 2.4vw, 2.4rem);
+    --text-display-4--line-height: 1.1;
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+
+@layer base {
+    :root {
+        --header-h: 84px;
+        color-scheme: light;
+    }
+
+    @media (min-width: 1024px) {
+        :root {
+            --header-h: 96px;
+        }
+    }
+
+    html {
+        -webkit-text-size-adjust: 100%;
+        scroll-behavior: smooth;
+    }
+
+    body {
+        @apply bg-paper font-sans text-ink antialiased;
+        text-rendering: optimizeLegibility;
+    }
+
+    ::selection {
+        @apply bg-brass text-ink;
+    }
+
+    :focus-visible {
+        outline: 1.5px solid var(--color-brass);
+        outline-offset: 3px;
+    }
+
+    img,
+    video {
+        @apply block max-w-full;
+    }
+
+    [x-cloak] {
+        display: none !important;
+    }
+
+    /* Lucide placeholders hold their space until replaced by SVG. */
+    i[data-lucide] {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+    }
+
+    .icon {
+        width: 1em;
+        height: 1em;
+        flex-shrink: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html {
+            scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+}
+
+/* ------------------------------------------------------------------ */
+/* Layout & typography primitives                                      */
+/* ------------------------------------------------------------------ */
+
+@layer components {
+    .container-x {
+        @apply mx-auto w-full max-w-[1480px] px-5 sm:px-8 lg:px-12;
+    }
+
+    .section {
+        @apply py-24 md:py-32 lg:py-40;
+    }
+
+    .display {
+        @apply font-display font-light tracking-[-0.015em];
+    }
+
+    .display em,
+    .display i {
+        @apply font-normal italic;
+    }
+
+    .eyebrow {
+        @apply inline-flex items-center gap-3 font-sans text-[11px] font-semibold tracking-[0.28em] uppercase;
+    }
+
+    .eyebrow::before {
+        content: '';
+        @apply h-px w-8 bg-current opacity-50;
+    }
+
+    .eyebrow-plain::before {
+        display: none;
+    }
+
+    .mono {
+        @apply font-mono text-[11px] tracking-[0.18em] uppercase;
+    }
+
+    .lead {
+        @apply text-lg leading-relaxed md:text-xl md:leading-relaxed;
+    }
+
+    .rule {
+        @apply h-px w-full bg-current opacity-15;
+    }
+
+    .skip-link {
+        @apply fixed top-3 left-3 z-[100] -translate-y-24 bg-brass px-4 py-2 text-sm text-ink transition-transform focus:translate-y-0;
+    }
+
+    /* Outlined numerals used in editorial sections */
+    .numeral {
+        @apply font-display leading-none font-light;
+        -webkit-text-stroke: 1px currentColor;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .link-line {
+        @apply relative inline-flex items-center gap-2 pb-1;
+    }
+
+    .link-line::after {
+        content: '';
+        @apply absolute bottom-0 left-0 h-px w-full origin-right scale-x-0 bg-current transition-transform duration-500 ease-expo;
+    }
+
+    .link-line:hover::after,
+    .link-line:focus-visible::after,
+    .link-line.is-static::after {
+        @apply origin-left scale-x-100;
+    }
+
+    .link-line.is-static:hover::after {
+        animation: line-redraw 0.7s var(--ease-expo);
+    }
+
+    /* Blueprint grid used on the drone engineering pages */
+    .blueprint {
+        background-image:
+            linear-gradient(rgb(143 160 174 / 0.07) 1px, transparent 1px),
+            linear-gradient(90deg, rgb(143 160 174 / 0.07) 1px, transparent 1px);
+        background-size: 56px 56px;
+    }
+
+    .corner-frame {
+        @apply relative;
+    }
+
+    .corner-frame::before,
+    .corner-frame::after {
+        content: '';
+        @apply pointer-events-none absolute h-5 w-5 border-steel/60;
+    }
+
+    .corner-frame::before {
+        @apply top-0 left-0 border-t border-l;
+    }
+
+    .corner-frame::after {
+        @apply right-0 bottom-0 border-r border-b;
+    }
+
+    .media-frame {
+        @apply relative overflow-hidden bg-char;
+    }
+
+    .media-frame > img {
+        @apply h-full w-full object-cover;
+    }
+}
+
+/* ------------------------------------------------------------------ */
+/* Buttons                                                             */
+/* ------------------------------------------------------------------ */
+
+@layer components {
+    .btn {
+        @apply relative isolate inline-flex min-h-12 items-center justify-center gap-3 overflow-hidden rounded-full px-7 text-[13px] font-semibold tracking-[0.08em] uppercase transition-colors duration-500 ease-expo select-none;
+    }
+
+    .btn::before {
+        content: '';
+        @apply absolute inset-0 -z-10 origin-bottom scale-y-0 rounded-[inherit] transition-transform duration-500 ease-expo;
+    }
+
+    .btn:hover::before,
+    .btn:focus-visible::before {
+        @apply scale-y-100;
+    }
+
+    .btn .btn-icon {
+        @apply inline-flex text-base transition-transform duration-500 ease-expo;
+    }
+
+    .btn:hover .btn-icon {
+        @apply translate-x-0.5 -translate-y-0.5 rotate-45;
+    }
+
+    .btn-sm {
+        @apply min-h-10 px-5 text-[11px];
+    }
+
+    .btn-lg {
+        @apply min-h-14 px-9;
+    }
+
+    .btn-light {
+        @apply bg-bone text-ink;
+    }
+
+    .btn-light::before {
+        @apply bg-brass-soft;
+    }
+
+    .btn-dark {
+        @apply bg-ink text-paper;
+    }
+
+    .btn-dark::before {
+        @apply bg-graphite;
+    }
+
+    .btn-outline-light {
+        @apply text-bone ring-1 ring-bone/35 ring-inset hover:text-ink;
+    }
+
+    .btn-outline-light::before {
+        @apply bg-bone;
+    }
+
+    .btn-outline-dark {
+        @apply text-ink ring-1 ring-ink/25 ring-inset hover:text-paper;
+    }
+
+    .btn-outline-dark::before {
+        @apply bg-ink;
+    }
+
+    .btn-brass {
+        @apply bg-brass text-ink;
+    }
+
+    .btn-brass::before {
+        @apply bg-brass-soft;
+    }
+
+    .icon-btn {
+        @apply relative inline-flex h-11 w-11 items-center justify-center rounded-full text-[19px] transition-colors duration-300 hover:bg-current/10;
+    }
+}
+
+/* ------------------------------------------------------------------ */
+/* Header                                                              */
+/* ------------------------------------------------------------------ */
+
+@layer components {
+    .site-header {
+        @apply fixed inset-x-0 top-0 z-50 transition-[background-color,transform,color,box-shadow] duration-500 ease-expo;
+    }
+
+    .site-header--dark {
+        @apply text-bone;
+    }
+
+    .site-header--light {
+        @apply text-ink;
+    }
+
+    .site-header.is-scrolled.site-header--dark {
+        @apply bg-ink/80 backdrop-blur-xl;
+        box-shadow: 0 1px 0 rgb(255 255 255 / 0.06);
+    }
+
+    .site-header.is-scrolled.site-header--light {
+        @apply bg-paper/85 backdrop-blur-xl;
+        box-shadow: 0 1px 0 rgb(12 12 13 / 0.08);
+    }
+
+    .site-header.is-hidden {
+        @apply -translate-y-full;
+    }
+
+    .nav-link {
+        @apply relative py-2 text-[13px] font-medium tracking-[0.06em] opacity-75 transition-opacity duration-300 hover:opacity-100;
+    }
+
+    .nav-link::after {
+        content: '';
+        @apply absolute -bottom-0.5 left-0 h-px w-full origin-right scale-x-0 bg-current transition-transform duration-500 ease-expo;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.is-active::after {
+        @apply origin-left scale-x-100;
+    }
+
+    .nav-link.is-active {
+        @apply opacity-100;
+    }
+
+    .bag-count {
+        @apply absolute top-1.5 right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-brass px-1 text-[9px] font-bold text-ink;
+    }
+}
+
+/* ------------------------------------------------------------------ */
+/* Product card                                                        */
+/* ------------------------------------------------------------------ */
+
+@layer components {
+    .product-card .product-media img {
+        @apply transition-[transform,opacity] duration-[1200ms] ease-expo;
+    }
+
+    .product-card:hover .product-media img.is-primary {
+        @apply scale-[1.04];
+    }
+
+    .product-card .product-media img.is-secondary {
+        @apply opacity-0;
+    }
+
+    @media (hover: hover) {
+        .product-card:hover .product-media img.is-secondary {
+            @apply scale-[1.02] opacity-100;
+        }
+
+        .product-actions {
+            @apply translate-y-3 opacity-0 transition-[transform,opacity] duration-500 ease-expo;
+        }
+
+        .product-card:hover .product-actions,
+        .product-card:focus-within .product-actions {
+            @apply translate-y-0 opacity-100;
+        }
+    }
+}
+
+/* ------------------------------------------------------------------ */
+/* Forms                                                               */
+/* ------------------------------------------------------------------ */
+
+@layer components {
+    .field {
+        @apply relative block;
+    }
+
+    .field-input {
+        @apply block w-full rounded-none border-0 border-b border-ink/20 bg-transparent px-0 pt-6 pb-2.5 text-base text-ink transition-colors duration-300 outline-none placeholder:text-transparent focus:border-ink;
+    }
+
+    .field-label {
+        @apply pointer-events-none absolute top-6 left-0 origin-left text-base text-smoke transition-all duration-300 ease-expo peer-focus:top-0 peer-focus:text-[11px] peer-focus:tracking-[0.2em] peer-focus:uppercase peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:tracking-[0.2em] peer-[:not(:placeholder-shown)]:uppercase;
+    }
+
+    .field-error {
+        @apply mt-2 text-xs text-[#a5503f];
+    }
+
+    .range {
+        @apply h-px w-full cursor-pointer appearance-none bg-ink/20;
+    }
+
+    .range::-webkit-slider-thumb {
+        @apply h-4 w-4 appearance-none rounded-full border-2 border-paper bg-ink shadow;
+    }
+
+    .range::-moz-range-thumb {
+        @apply h-4 w-4 rounded-full border-2 border-paper bg-ink;
+    }
+}
+
+/* ------------------------------------------------------------------ */
+/* Sliders                                                             */
+/* ------------------------------------------------------------------ */
+
+.swiper {
+    @apply overflow-visible;
+}
+
+.swiper-clip {
+    @apply overflow-hidden;
+}
+
+.slider-progress {
+    @apply relative h-px w-full overflow-hidden bg-current/15;
+}
+
+.slider-progress span {
+    @apply absolute inset-y-0 left-0 w-full origin-left bg-current transition-transform duration-500 ease-expo;
+}
+
+.thumbs .swiper-slide {
+    @apply cursor-pointer opacity-45 transition-opacity duration-300;
+}
+
+.thumbs .swiper-slide-thumb-active {
+    @apply opacity-100;
+}
+
+/* ------------------------------------------------------------------ */
+/* Motion: initial states only apply when JS + motion are available   */
+/* ------------------------------------------------------------------ */
+
+.page-curtain {
+    @apply pointer-events-none fixed inset-0 z-[90] origin-top bg-ink;
+    transform: scaleY(0);
+}
+
+.motion .page-curtain {
+    animation: curtain-out 0.9s 0.05s var(--ease-silk) both;
+}
+
+.motion .page-curtain.is-leaving {
+    animation: curtain-in 0.55s var(--ease-silk) both;
+    transform-origin: bottom;
+}
+
+.motion [data-reveal],
+.motion [data-split] .split-word > span {
+    opacity: 0;
+}
+
+.motion [data-reveal-image] {
+    clip-path: inset(100% 0 0 0);
+}
+
+.split-word {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+}
+
+.split-word > span {
+    display: inline-block;
+}
+
+@keyframes curtain-out {
+    from {
+        transform: scaleY(1);
+    }
+    to {
+        transform: scaleY(0);
+    }
+}
+
+@keyframes curtain-in {
+    from {
+        transform: scaleY(0);
+    }
+    to {
+        transform: scaleY(1);
+    }
+}
+
+@keyframes line-redraw {
+    0% {
+        transform: scaleX(1);
+        transform-origin: right;
+    }
+    50% {
+        transform: scaleX(0);
+        transform-origin: right;
+    }
+    51% {
+        transform-origin: left;
+    }
+    100% {
+        transform: scaleX(1);
+        transform-origin: left;
+    }
+}
+
+@keyframes scroll-cue {
+    0% {
+        transform: scaleY(0);
+        transform-origin: top;
+    }
+    45% {
+        transform: scaleY(1);
+        transform-origin: top;
+    }
+    55% {
+        transform: scaleY(1);
+        transform-origin: bottom;
+    }
+    100% {
+        transform: scaleY(0);
+        transform-origin: bottom;
+    }
+}
+
+@keyframes spin-slow {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulse-ring {
+    0% {
+        transform: scale(0.6);
+        opacity: 0.9;
+    }
+    100% {
+        transform: scale(2.4);
+        opacity: 0;
+    }
+}
+
+@keyframes marquee {
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-scroll-cue {
+    animation: scroll-cue 2.4s var(--ease-silk) infinite;
+}
+
+.animate-spin-slow {
+    animation: spin-slow 40s linear infinite;
+}
+
+.animate-pulse-ring {
+    animation: pulse-ring 2.2s var(--ease-expo) infinite;
+}
+
+.animate-marquee {
+    animation: marquee 48s linear infinite;
+}
+
+/* Spotlight lists dim until each item crosses the viewport centre. */
+.motion [data-spotlight] > * {
+    opacity: 0.28;
+}
+
+.motion [data-spotlight] > .is-lit {
+    opacity: 1;
+}
+
+/* ------------------------------------------------------------------ */
+/* Scrollbar — slim brass thumb on charcoal; warm-white track on light pages */
+/* ------------------------------------------------------------------ */
+
+:root {
+    --scroll-track: var(--color-ink);
+    --scroll-thumb: #5a4d39;
+    --scroll-thumb-hover: var(--color-brass);
+}
+
+:root:has(.site-header--light),
+:root:has(body.admin) {
+    --scroll-track: var(--color-paper);
+    --scroll-thumb: #c9bfae;
+    --scroll-thumb-hover: var(--color-brass);
+}
+
+/* Chromium, Edge, Safari */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--scroll-track);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--scroll-thumb);
+    border: 3px solid var(--scroll-track);
+    border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--scroll-thumb-hover);
+}
+
+::-webkit-scrollbar-button,
+::-webkit-scrollbar-corner {
+    display: none;
+    background: transparent;
+}
+
+/* Firefox (setting scrollbar-color in Chromium would disable the rules above) */
+@supports (-moz-appearance: none) {
+    :root {
+        scrollbar-width: thin;
+        scrollbar-color: var(--scroll-thumb) var(--scroll-track);
+    }
+}
