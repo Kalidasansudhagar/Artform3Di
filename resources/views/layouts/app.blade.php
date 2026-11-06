@@ -3,9 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>@hasSection('title')@yield('title') — ARTFORM 3Di @else ARTFORM 3Di — Where Design Meets Technology @endif</title>
-    <meta name="description" content="@yield('description', 'ARTFORM 3Di — premium 3D art, creative manufacturing and drone engineering. Transforming imagination into extraordinary creations.')">
+    <title>@hasSection('title')@yield('title') — ARTFORM 3Di @else 3D Printing &amp; Rapid Prototyping Services in Chennai | ARTFORM 3Di @endif</title>
+    <meta name="description" content="@yield('description', 'Artform 3Di offers FDM 3D printing, CAD design, rapid prototyping, parts restoration and small-batch production in Chennai. Contact us for a quote.')">
     <meta name="theme-color" content="#0c0c0d">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="cart-count" content="{{ \App\Support\Cart::count() }}">
     <meta property="og:title" content="@yield('title', 'ARTFORM 3Di')">
     <meta property="og:description" content="@yield('description', config('artform.tagline'))">
     <meta property="og:type" content="website">
@@ -40,6 +42,9 @@
     <x-quick-view />
     <x-account-drawer />
     <x-toast />
+    @if (session('notice'))
+        <div x-data x-init="$nextTick(() => $store.ui.notify(@js(session('notice'))))" hidden></div>
+    @endif
 
     @stack('scripts')
 </body>

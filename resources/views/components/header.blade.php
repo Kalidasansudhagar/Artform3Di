@@ -29,13 +29,19 @@
             <button type="button" class="icon-btn" @click="$store.ui.openSearch()" aria-label="Search">
                 <x-icon name="search" />
             </button>
-            <button type="button" class="icon-btn hidden sm:inline-flex" @click="$store.ui.account()" aria-label="Account">
-                <x-icon name="user-round" />
-            </button>
-            <button type="button" class="icon-btn" @click="$store.ui.notify($store.ui.bagCount ? 'Your bag is saved for this visit. Online checkout opens soon.' : 'Your bag is empty — explore the collection.')" aria-label="Shopping bag">
+            @auth
+                <a href="{{ route('account') }}" class="icon-btn hidden sm:inline-flex" aria-label="My account">
+                    <x-icon name="user-round" />
+                </a>
+            @else
+                <button type="button" class="icon-btn hidden sm:inline-flex" @click="$store.ui.account()" aria-label="Account">
+                    <x-icon name="user-round" />
+                </button>
+            @endauth
+            <a href="{{ route('cart.index') }}" class="icon-btn" aria-label="Shopping bag">
                 <x-icon name="shopping-bag" />
                 <span x-cloak x-show="$store.ui.bagCount" x-text="$store.ui.bagCount" class="bag-count"></span>
-            </button>
+            </a>
             <button type="button" class="icon-btn lg:hidden" @click="$store.ui.menuOpen = true" aria-label="Open menu" :aria-expanded="$store.ui.menuOpen" aria-controls="mobile-menu">
                 <x-icon name="menu" />
             </button>
@@ -83,7 +89,11 @@
         <div class="space-y-5 px-5 pt-8 pb-[max(2rem,env(safe-area-inset-bottom))] text-sm text-bone/70 sm:px-8">
             <div class="flex gap-3">
                 <button type="button" class="btn btn-outline-light btn-sm flex-1" @click="$store.ui.openSearch()"><x-icon name="search" /> <span>Search</span></button>
-                <button type="button" class="btn btn-outline-light btn-sm flex-1" @click="$store.ui.account()"><x-icon name="user-round" /> <span>Account</span></button>
+                @auth
+                    <a href="{{ route('account') }}" class="btn btn-outline-light btn-sm flex-1"><x-icon name="user-round" /> <span>Account</span></a>
+                @else
+                    <button type="button" class="btn btn-outline-light btn-sm flex-1" @click="$store.ui.account()"><x-icon name="user-round" /> <span>Account</span></button>
+                @endauth
             </div>
             <x-contact-detail key="email" label="Email" class="block" />
             <x-social-links class="text-bone" />

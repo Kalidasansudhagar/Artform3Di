@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Drone Engineering')
-@section('description', 'Custom drone manufacturing, rapid prototyping and research & development — drone engineering by ARTFORM 3Di.')
+@section('title', 'Drone & RC Components')
+@section('description', 'CAD-designed and 3D printed frames, mounts, enclosures and custom components for drone and RC projects by Artform 3Di, Chennai.')
 @section('header_theme', 'dark')
 @section('body_class', 'bg-deep')
 
@@ -20,8 +20,8 @@
         <span class="absolute bottom-0 left-0 h-8 w-8 border-b border-l border-steel/50"></span>
         <span class="absolute right-0 bottom-0 h-8 w-8 border-r border-b border-steel/50"></span>
         <div class="mono absolute top-[calc(var(--header-h)+1.5rem)] right-6 space-y-1 text-right text-[10px] text-steel/70">
-            <p>Division · Engineering</p>
-            <p>Mode · Design / Build / Test</p>
+            <p>Drones · RC Components</p>
+            <p>Mode · Design / Print / Iterate</p>
         </div>
         <div class="absolute top-1/2 left-1/2 hidden h-40 w-40 -translate-x-1/2 -translate-y-1/2 lg:block">
             <span class="absolute inset-0 rounded-full border border-steel/20"></span>
@@ -31,13 +31,13 @@
     </div>
 
     <div class="container-x relative pt-[calc(var(--header-h)+4rem)] pb-16 lg:pb-24">
-        <p class="mono flex items-center gap-3 text-steel" data-reveal><span class="h-px w-8 bg-current"></span>Drone Engineering</p>
-        <h1 class="display mt-8 max-w-5xl text-display-1" data-split data-split-immediate data-delay="0.3">Engineered <em class="text-steel">for Flight.</em></h1>
+        <p class="mono flex items-center gap-3 text-steel" data-reveal><span class="h-px w-8 bg-current"></span>Drone &amp; RC Components</p>
+        <h1 class="display mt-8 max-w-5xl text-display-1" data-split data-split-immediate data-delay="0.3">Printed Parts <em class="text-steel">for Flight.</em></h1>
         <div class="mt-10 flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
-            <p class="lead max-w-xl text-bone/70" data-reveal data-delay="0.8">Custom drone platforms designed, prototyped and built in-house — combining precision manufacturing with hands-on engineering.</p>
+            <p class="lead max-w-xl text-bone/70" data-reveal data-delay="0.8">CAD-designed and 3D printed frames, mounts, enclosures and custom components for drone and RC projects.</p>
             <div class="flex flex-col gap-3 sm:flex-row" data-reveal data-delay="0.95">
-                <x-button href="#capabilities" variant="light" size="lg" icon="arrow-down" data-no-transition>Capabilities</x-button>
-                <x-button :href="route('contact').'#enquiry'" variant="outline-light" size="lg">Discuss a build</x-button>
+                <x-button href="#capabilities" variant="light" size="lg" icon="arrow-down" data-no-transition>What we print</x-button>
+                <x-button :href="route('contact').'#enquiry'" variant="outline-light" size="lg">Request a quote</x-button>
             </div>
         </div>
     </div>
@@ -51,10 +51,10 @@
         </div>
         <div class="lg:col-span-8">
             <p class="display text-display-4 leading-snug md:text-display-3" data-split>
-                Our engineering division applies the precision of additive manufacturing to <em class="text-steel">unmanned aerial systems</em> — from first sketch to flight-ready platform.
+                As our studio grew, our projects expanded into <em class="text-steel">drones and RC components</em> — parts designed in CAD and printed on our 15-machine FDM farm.
             </p>
             <dl class="mt-14 grid gap-px bg-steel/15 sm:grid-cols-3" data-reveal>
-                @foreach ([['Design', 'CAD-led airframe and component design'], ['Build', 'Printed and assembled in-house'], ['Test', 'Iterated through real-world trials']] as [$term, $desc])
+                @foreach ([['Design', 'CAD modelling in SolidWorks and Fusion 360'], ['Print', 'Engineering materials such as PETG, Nylon and Nylon-CF'], ['Iterate', 'Fast revisions for fit checks and refinement']] as [$term, $desc])
                     <div class="bg-deep p-6">
                         <dt class="mono text-steel">{{ $term }}</dt>
                         <dd class="mt-3 text-sm leading-relaxed text-bone/60">{{ $desc }}</dd>
@@ -68,15 +68,15 @@
 {{-- Core services as spec-sheet panels --}}
 @php
     $divisions = [
-        ['code' => 'DE-01', 'title' => 'Custom Drone Manufacturing', 'image' => 'assets/images/drones/manufacturing.svg', 'text' => 'Bespoke airframes and assemblies designed around your payload, range and operating environment.', 'points' => ['Mission-specific frame design', 'Printed and composite structures', 'Assembly and integration']],
-        ['code' => 'DE-02', 'title' => 'Rapid Prototyping', 'image' => 'assets/images/drones/prototyping.svg', 'text' => 'Print, fit, fly, refine. Fast design iterations shorten the path from concept to a proven platform.', 'points' => ['Quick-turn component printing', 'Fit and assembly validation', 'Design-test-iterate cycles']],
-        ['code' => 'DE-03', 'title' => 'Research & Development', 'image' => 'assets/images/drones/research.svg', 'text' => 'Experimental platforms and test rigs for exploring new configurations, payloads and ideas.', 'points' => ['Concept exploration', 'Payload and mount experiments', 'Collaborative R&D projects']],
+        ['code' => 'DR-01', 'title' => 'Frames & Mounts', 'image' => 'assets/images/drones/manufacturing.svg', 'text' => 'Printed frames, arms, brackets and mounts designed around your build.', 'points' => ['Frame and arm parts', 'Motor and camera mounts', 'Brackets and clips']],
+        ['code' => 'DR-02', 'title' => 'Rapid Prototyping', 'image' => 'assets/images/drones/prototyping.svg', 'text' => 'Quick design iterations so you can check fit and refine before a final print.', 'points' => ['Fit and assembly checks', 'Design revisions', 'Small batches of spares']],
+        ['code' => 'DR-03', 'title' => 'Custom Components', 'image' => 'assets/images/drones/research.svg', 'text' => 'Enclosures, covers and project-specific parts for drone, RC and student projects.', 'points' => ['Electronics enclosures', 'Covers and guards', 'Academic and hobby projects']],
     ];
 @endphp
 <section id="capabilities" class="blueprint scroll-mt-20 border-t border-steel/15 bg-deep py-24 text-bone md:py-32">
     <div class="container-x">
         <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <h2 class="display text-display-2" data-split>Three disciplines. <em class="text-steel">One workshop.</em></h2>
+            <h2 class="display text-display-2" data-split>What we print <em class="text-steel">for drones &amp; RC.</em></h2>
             <p class="mono text-steel" data-reveal>[ 01 — 03 ]</p>
         </div>
 
@@ -108,17 +108,17 @@
     <div class="container-x grid gap-14 lg:grid-cols-12">
         <div class="lg:col-span-4">
             <p class="mono text-steel">[ 02 ] Capabilities</p>
-            <h2 class="display mt-8 text-display-3" data-split>Engineering, <em class="text-steel">end to end.</em></h2>
-            <p class="mt-6 max-w-sm leading-relaxed text-bone/55" data-reveal>Every stage of development handled by one team, so design intent carries all the way to the finished aircraft.</p>
+            <h2 class="display mt-8 text-display-3" data-split>Design to print, <em class="text-steel">in one studio.</em></h2>
+            <p class="mt-6 max-w-sm leading-relaxed text-bone/55" data-reveal>CAD design, material selection and printing handled together, so your part is made the way it was designed.</p>
         </div>
         <div class="grid gap-px bg-steel/15 sm:grid-cols-2 lg:col-span-8">
             @foreach ([
-                ['pen-tool', 'Airframe Design', 'Structural CAD tuned for weight, stiffness and printability.'],
-                ['cpu', 'Electronics Integration', 'Flight controller, power and wiring layouts planned and installed.'],
-                ['wind', 'Propulsion Matching', 'Motor, propeller and battery combinations selected for the mission.'],
-                ['package', 'Payload Integration', 'Custom mounts and housings for cameras and sensors.'],
-                ['layers', 'Additive Manufacturing', 'Printed structural parts in engineering-grade materials.'],
-                ['gauge', 'Testing & Iteration', 'Bench and field testing feeding directly into design revisions.'],
+                ['pen-tool', 'CAD Design', 'Part modelling and design changes in SolidWorks and Fusion 360.'],
+                ['cpu', 'Electronics Enclosures', 'Housings with openings, cable routing and fastener provisions.'],
+                ['wind', 'Lightweight Parts', 'Geometry and materials chosen to keep parts light and stiff.'],
+                ['package', 'Payload Mounts', 'Custom mounts and housings for cameras and sensors.'],
+                ['layers', 'Engineering Materials', 'PETG, ABS, ASA, TPU, Nylon and Nylon-CF where suited.'],
+                ['gauge', 'Revisions & Spares', 'Design iterations and small batches on the 15-machine farm.'],
             ] as [$icon, $title, $text])
                 <div class="group bg-[#11161a] p-7 transition-colors duration-500 hover:bg-deep lg:p-9" data-reveal>
                     <x-icon :name="$icon" class="text-2xl text-steel transition-transform duration-500 group-hover:-translate-y-1" />
@@ -133,18 +133,18 @@
 {{-- Technical showcase with hotspots --}}
 @php
     $hotspots = [
-        ['label' => 'Airframe', 'x' => 58, 'y' => 36, 'text' => 'A rigid, lightweight central frame — printed, reinforced and optimised for each configuration.'],
-        ['label' => 'Propulsion', 'x' => 67, 'y' => 21, 'text' => 'Motors and propellers matched to the target weight and flight profile.'],
-        ['label' => 'Flight control', 'x' => 50, 'y' => 50, 'text' => 'Controller, sensors and power distribution laid out for clean, serviceable wiring.'],
-        ['label' => 'Payload bay', 'x' => 50, 'y' => 63, 'text' => 'Custom mounts for cameras, sensors or experimental equipment.'],
+        ['label' => 'Frame arms', 'x' => 58, 'y' => 36, 'text' => 'Printed arms and frame parts, designed in CAD for your layout.'],
+        ['label' => 'Motor mounts', 'x' => 67, 'y' => 21, 'text' => 'Mounts and guards sized to your motors and propellers.'],
+        ['label' => 'Electronics housing', 'x' => 50, 'y' => 50, 'text' => 'Enclosures for controllers and electronics, with openings and cable routing.'],
+        ['label' => 'Payload mount', 'x' => 50, 'y' => 63, 'text' => 'Custom mounts for cameras, sensors or project equipment.'],
     ];
 @endphp
 <section class="blueprint bg-deep py-24 text-bone md:py-32" x-data="{ active: 0 }">
     <div class="container-x grid items-center gap-14 lg:grid-cols-12">
         <div class="lg:col-span-5 lg:order-2">
             <p class="mono text-steel">[ 03 ] Technical Showcase</p>
-            <h2 class="display mt-8 text-display-3" data-split>Inside <em class="text-steel">the build.</em></h2>
-            <p class="mt-6 max-w-md leading-relaxed text-bone/55" data-reveal>Select a component to explore how each system comes together.</p>
+            <h2 class="display mt-8 text-display-3" data-split>Parts we <em class="text-steel">can print.</em></h2>
+            <p class="mt-6 max-w-md leading-relaxed text-bone/55" data-reveal>Select a component to see the kind of printed part we can make for it.</p>
 
             <ol class="mt-10 border-t border-steel/20" data-reveal>
                 @foreach ($hotspots as $i => $spot)
@@ -182,10 +182,10 @@
 {{-- Project gallery --}}
 @php
     $gallery = [
-        ['title' => 'Survey Quad Airframe', 'tag' => 'Manufacturing', 'image' => 'assets/images/projects/survey-quad.svg'],
-        ['title' => 'Hexacopter R&D Platform', 'tag' => 'Research', 'image' => 'assets/images/projects/hexacopter.svg'],
+        ['title' => 'Quadcopter Frame Parts', 'tag' => 'Frames', 'image' => 'assets/images/projects/survey-quad.svg'],
+        ['title' => 'Hexacopter Components', 'tag' => 'Components', 'image' => 'assets/images/projects/hexacopter.svg'],
         ['title' => 'Printed Arm Iterations', 'tag' => 'Prototyping', 'image' => 'assets/images/drones/manufacturing.svg'],
-        ['title' => 'Compact Test Frame', 'tag' => 'Prototyping', 'image' => 'assets/images/drones/prototyping.svg'],
+        ['title' => 'Compact RC Frame', 'tag' => 'Prototyping', 'image' => 'assets/images/drones/prototyping.svg'],
     ];
 @endphp
 <section class="overflow-x-clip border-t border-steel/15 bg-deep py-24 text-bone md:py-32" data-slider="projects">
@@ -221,6 +221,6 @@
     </div>
 </section>
 
-<x-contact-cta tone="steel" eyebrow="Engineering enquiries" heading="Have a mission in mind? <em class='text-steel'>Let’s engineer it.</em>" text="Tell us about your application, payload and requirements — we’ll help shape the right platform." />
+<x-contact-cta tone="steel" eyebrow="Drone &amp; RC enquiries" heading="Need a part for your build? <em class='text-steel'>Let’s print it.</em>" text="Share a CAD file, sketch, photo or the broken part — we’ll review feasibility and material before quoting." />
 
 @endsection

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Shop')
-@section('description', 'Explore the ARTFORM 3Di collection — Hindu deity sculptures, spiritual art, decorative sculptures, premium figurines and custom 3D creations.')
+@section('description', 'Products designed and 3D printed by Artform 3Di in Chennai — statues, miniatures, personalised gifts and custom creations.')
 @section('header_theme', 'light')
 
 @section('content')
@@ -17,7 +17,7 @@
             <div class="mt-10 grid gap-10 lg:grid-cols-12 lg:items-end">
                 <h1 class="display text-display-1 lg:col-span-8" data-split data-split-immediate data-delay="0.2">The <em>Collection</em></h1>
                 <div class="lg:col-span-4" data-reveal data-delay="0.5">
-                    <p class="leading-relaxed text-ink/65">Sculptural objects printed with precision and finished by hand. Each piece is made to order in the studio.</p>
+                    <p class="leading-relaxed text-ink/65">Products designed and 3D printed in our Sholinganallur studio. To order, send an enquiry or message us on WhatsApp.</p>
                     <p class="mono mt-6 text-smoke"><span x-text="results.length"></span> of {{ $products->count() }} pieces</p>
                 </div>
             </div>
@@ -124,10 +124,10 @@
             {{-- Empty state --}}
             <div x-cloak x-show="results.length === 0" class="mx-auto max-w-md py-24 text-center">
                 <p class="display text-4xl">Nothing matches — yet.</p>
-                <p class="mt-4 text-ink/60">Try another search or category, or ask us about a custom commission.</p>
+                <p class="mt-4 text-ink/60">Try another search or category, or ask us about a custom print.</p>
                 <div class="mt-8 flex justify-center gap-3">
                     <x-button variant="dark" icon="rotate-ccw" @click="reset()">Reset filters</x-button>
-                    <x-button :href="route('contact')" variant="outline-dark">Commission a piece</x-button>
+                    <x-button :href="route('contact')" variant="outline-dark">Get a Quote</x-button>
                 </div>
             </div>
 
@@ -149,12 +149,12 @@
 <section class="bg-ink text-bone">
     <div class="container-x grid gap-10 py-20 lg:grid-cols-12 lg:items-center lg:py-28">
         <div class="lg:col-span-7">
-            <x-eyebrow class="text-brass">Bespoke Studio</x-eyebrow>
-            <h2 class="display mt-6 text-display-3" data-split>Looking for something <em>entirely yours?</em></h2>
+            <x-eyebrow class="text-brass">Custom Orders</x-eyebrow>
+            <h2 class="display mt-6 text-display-3" data-split>Looking for something <em>made to your design?</em></h2>
         </div>
         <div class="lg:col-span-4 lg:col-start-9" data-reveal>
-            <p class="leading-relaxed text-bone/60">Commission a custom sculpture, portrait bust or devotional piece — modelled to your brief, in the size and finish you choose.</p>
-            <x-button :href="route('contact').'#enquiry'" variant="light" class="mt-8">Commission a piece</x-button>
+            <p class="leading-relaxed text-bone/60">Custom statues, miniatures, personalised gifts and models — printed from your references or designs, with painting available for selected parts.</p>
+            <x-button :href="route('contact').'#enquiry'" variant="light" class="mt-8">Request a Quote</x-button>
         </div>
     </div>
 </section>

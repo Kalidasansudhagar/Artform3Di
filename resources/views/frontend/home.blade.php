@@ -40,17 +40,17 @@
     <div class="container-x pt-[calc(var(--header-h)+3rem)] pb-14 sm:pb-20 lg:pb-24">
         <div class="max-w-4xl">
             <p class="mono flex items-center gap-3 text-brass-soft" data-reveal data-delay="0.2">
-                <span>Art</span><span class="h-1 w-1 rounded-full bg-current"></span><span>Technology</span><span class="h-1 w-1 rounded-full bg-current"></span><span>Innovation</span>
+                <span>3D Printing</span><span class="h-1 w-1 rounded-full bg-current"></span><span>CAD Design</span><span class="h-1 w-1 rounded-full bg-current"></span><span>Prototyping</span>
             </p>
             <h1 class="display mt-6 text-display-1" data-split data-split-immediate data-delay="0.35">
                 Where Design <br class="hidden sm:block">Meets <em class="text-brass-soft">Technology.</em>
             </h1>
             <p class="lead mt-8 max-w-xl text-bone/75" data-reveal data-delay="0.9">
-                Transforming imagination into extraordinary creations through advanced 3D printing and creative engineering.
+                FDM 3D printing, CAD design, rapid prototyping and custom part reproduction in Chennai. From one-off prototypes to small-batch production, Artform 3Di helps bring your ideas to life.
             </p>
             <div class="mt-10 flex flex-col gap-3 sm:flex-row" data-reveal data-delay="1.05">
-                <x-button :href="route('shop.index')" variant="light" size="lg">Explore Collection</x-button>
-                <x-button :href="route('services')" variant="outline-light" size="lg" icon="arrow-right">Discover Our Services</x-button>
+                <x-button :href="route('contact').'#enquiry'" variant="light" size="lg">Request a Quote</x-button>
+                <x-button :href="route('services')" variant="outline-light" size="lg" icon="arrow-right">Explore Our Services</x-button>
             </div>
         </div>
 
@@ -61,7 +61,7 @@
                     <span data-print-status>Printing</span> · <span data-layer-counter class="tabular-nums">Layer 001 / 150</span>
                 </p>
             @else
-                <p class="mono text-bone/55">Precision FDM · Hand finished</p>
+                <p class="mono text-bone/55">15-machine FDM print farm · Chennai</p>
             @endunless
             <a href="#studio" class="hidden items-center gap-4 text-bone/60 transition hover:text-bone sm:flex" data-no-transition>
                 <span class="mono">Scroll</span>
@@ -78,22 +78,22 @@
     <div class="container-x grid items-center gap-16 lg:grid-cols-12 lg:gap-10">
         <div class="relative lg:col-span-5">
             <div class="media-frame aspect-[10/13]" data-reveal-image>
-                <img src="{{ asset('assets/images/home/intro-studio.svg') }}" alt="A 3D printer building a sculpture layer by layer" width="1000" height="1300" loading="lazy" decoding="async" data-parallax="0.12" class="scale-115">
+                <img src="{{ asset('assets/images/home/intro-studio.svg') }}" alt="A 3D printer in the Artform 3Di print farm" width="1000" height="1300" loading="lazy" decoding="async" data-parallax="0.12" class="scale-115">
             </div>
             <div class="media-frame absolute -right-4 -bottom-12 aspect-square w-[46%] ring-8 ring-paper sm:-right-10 lg:-right-20" data-reveal-image>
-                <img src="{{ asset('assets/images/home/intro-detail.svg') }}" alt="Detail of visible print layers on a twisted sculpture" width="900" height="900" loading="lazy" decoding="async">
+                <img src="{{ asset('assets/images/home/intro-detail.svg') }}" alt="Close-up of FDM print layers" width="900" height="900" loading="lazy" decoding="async">
             </div>
         </div>
 
         <div class="lg:col-span-6 lg:col-start-7">
             <x-eyebrow number="01" class="text-smoke">The Studio</x-eyebrow>
-            <h2 class="display mt-8 text-display-2" data-split>Engineering Creativity. <em>Crafting Possibilities.</em></h2>
+            <h2 class="display mt-8 text-display-2" data-split>From concept <em>to component.</em></h2>
             <div class="mt-10 grid gap-6 text-ink/70 sm:grid-cols-2" data-reveal>
-                <p class="leading-relaxed">ARTFORM 3Di sits where artistry meets engineering. We use advanced 3D printing to turn ideas — devotional sculptures, decorative objects, functional prototypes — into precise, tangible forms.</p>
-                <p class="leading-relaxed">Every piece is modelled with care, printed layer by layer and finished by hand, so the result carries both the accuracy of technology and the warmth of craft.</p>
+                <p class="leading-relaxed">At Artform 3Di, we turn ideas, designs and real-world problems into physical solutions. Based in Sholinganallur, Chennai, we provide FDM 3D printing, rapid prototyping, CAD modelling, parts restoration and small-batch manufacturing.</p>
+                <p class="leading-relaxed">Our 15-machine print farm, engineering and general-purpose materials and dedicated CAD support in SolidWorks and Fusion 360 help customers move from concept to a usable physical part.</p>
             </div>
             <ul class="mt-12 grid grid-cols-3 border-t border-ink/10" data-reveal>
-                @foreach (['Art', 'Manufacturing', 'Engineering'] as $i => $discipline)
+                @foreach (['Design', 'Prototyping', 'Production'] as $i => $discipline)
                     <li class="border-r border-ink/10 pt-5 pr-4 last:border-r-0 [&:not(:first-child)]:pl-4">
                         <span class="font-mono text-[11px] text-brass">0{{ $i + 1 }}</span>
                         <span class="display mt-2 block text-xl sm:text-2xl">{{ $discipline }}</span>
@@ -112,12 +112,12 @@
     <div class="container-x">
         <div class="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
             <div>
-                <x-eyebrow number="02" class="text-bone/50">The Collection</x-eyebrow>
-                <h2 class="display mt-8 text-display-2" data-split>Featured <em class="text-brass-soft">Masterpieces</em></h2>
+                <x-eyebrow number="02" class="text-bone/50">The Shop</x-eyebrow>
+                <h2 class="display mt-8 text-display-2" data-split>Featured <em class="text-brass-soft">Creations</em></h2>
             </div>
             <div class="flex max-w-md flex-col gap-6 lg:items-end lg:text-right" data-reveal>
-                <p class="leading-relaxed text-bone/60">Devotional sculpture, spiritual art and contemporary decorative forms — each printed with precision and finished by hand.</p>
-                <a href="{{ route('shop.index') }}" class="link-line is-static text-sm font-semibold tracking-[0.12em] uppercase">Explore Collection <x-icon name="arrow-right" /></a>
+                <p class="leading-relaxed text-bone/60">Statues, miniatures, personalised gifts and custom models — designed and 3D printed in our Chennai studio.</p>
+                <a href="{{ route('shop.index') }}" class="link-line is-static text-sm font-semibold tracking-[0.12em] uppercase">Visit the Shop <x-icon name="arrow-right" /></a>
             </div>
         </div>
 
@@ -152,9 +152,9 @@
 {{-- ============================================================= --}}
 @php
     $services = [
-        ['id' => 'rapid-prototyping', 'title' => 'Rapid Prototyping', 'text' => 'Fast, accurate prototypes that let you test form, fit and function before committing to production.', 'image' => 'assets/images/services/rapid-prototyping.svg'],
-        ['id' => 'custom-modelling', 'title' => 'Custom 3D Modelling', 'text' => 'From sketches, photographs or ideas to production-ready digital models, sculpted and engineered in-house.', 'image' => 'assets/images/services/custom-modelling.svg'],
-        ['id' => 'art-decor', 'title' => 'Premium Art & Decor', 'text' => 'Sculptures, vessels and statement pieces for homes, temples, hospitality and corporate spaces.', 'image' => 'assets/images/services/art-decor.svg'],
+        ['id' => 'rapid-prototyping', 'title' => 'Rapid Prototyping', 'text' => 'Physical prototypes for fit checks, design iteration and proof-of-concept work — plus small-batch production on our 15-machine farm.', 'image' => 'assets/images/services/rapid-prototyping.svg'],
+        ['id' => 'custom-modelling', 'title' => 'CAD & Parts Restoration', 'text' => 'CAD design in SolidWorks and Fusion 360, and recreation of broken, unavailable or obsolete parts from a sample, measurements or photos.', 'image' => 'assets/images/services/custom-modelling.svg'],
+        ['id' => 'art-decor', 'title' => 'Models, Gifts & Finishing', 'text' => 'Statues, miniatures, personalised gifts and display models, with painting available for selected parts.', 'image' => 'assets/images/services/art-decor.svg'],
     ];
 @endphp
 <section class="section bg-paper">
@@ -162,10 +162,10 @@
         <div class="grid gap-10 lg:grid-cols-12">
             <div class="lg:col-span-7">
                 <x-eyebrow number="03" class="text-smoke">3D Printing Services</x-eyebrow>
-                <h2 class="display mt-8 text-display-2" data-split>From Imagination <em>to Reality.</em></h2>
+                <h2 class="display mt-8 text-display-2" data-split>From Idea <em>to Physical Part.</em></h2>
             </div>
             <p class="max-w-md self-end leading-relaxed text-ink/65 lg:col-span-4 lg:col-start-9" data-reveal>
-                One studio for the whole journey — design, modelling, printing and finishing — whether you need a single prototype or a signature art piece.
+                One studio for design, modelling, printing and finishing — whether you need a single prototype, a recreated part or a small production batch.
             </p>
         </div>
 
@@ -198,7 +198,7 @@
         </div>
 
         <div class="mt-14 flex justify-center" data-reveal>
-            <x-button :href="route('services')" variant="dark" size="lg">Discover Services</x-button>
+            <x-button :href="route('services')" variant="dark" size="lg">Explore Our Services</x-button>
         </div>
     </div>
 </section>
@@ -211,9 +211,9 @@
         <div class="mb-20 flex flex-col gap-8 lg:mb-24 lg:flex-row lg:items-end lg:justify-between">
             <div>
                 <x-eyebrow number="04" class="text-smoke">The Process</x-eyebrow>
-                <h2 class="display mt-8 text-display-2" data-split>Ideas Become <em>Reality.</em></h2>
+                <h2 class="display mt-8 text-display-2" data-split>How It <em>Works.</em></h2>
             </div>
-            <p class="max-w-sm leading-relaxed text-ink/65" data-reveal>A clear, collaborative path from first conversation to finished object.</p>
+            <p class="max-w-sm leading-relaxed text-ink/65" data-reveal>A clear path from your first message to a finished, checked part.</p>
         </div>
         <x-process-timeline />
     </div>
@@ -225,17 +225,17 @@
 <section class="blueprint relative overflow-hidden bg-deep py-24 text-bone md:py-32 lg:py-40">
     <div class="container-x grid items-center gap-16 lg:grid-cols-12 lg:gap-12">
         <div class="lg:col-span-5">
-            <p class="mono flex items-center gap-3 text-steel"><span class="h-px w-8 bg-current"></span>05 · Division / Drone Engineering</p>
-            <h2 class="display mt-8 text-display-2" data-split>Built to Fly. <em class="text-steel">Engineered</em> to Perform.</h2>
+            <p class="mono flex items-center gap-3 text-steel"><span class="h-px w-8 bg-current"></span>05 · Drone &amp; RC Components</p>
+            <h2 class="display mt-8 text-display-2" data-split>Printed Parts <em class="text-steel">for Drones</em> &amp; RC.</h2>
             <p class="mt-8 max-w-md leading-relaxed text-bone/60" data-reveal>
-                The same precision that shapes our sculpture powers our engineering. We design, prototype and build custom drone platforms for specialised applications.
+                Our projects include drone and RC components — CAD-designed and 3D printed frames, mounts and custom parts in engineering materials such as PETG, Nylon and Nylon-CF.
             </p>
 
             <ul class="mt-12 border-t border-steel/20" data-reveal>
                 @foreach ([
-                    ['Custom Drone Manufacturing', 'Airframes and assemblies built around your mission.'],
-                    ['Rapid Prototyping', 'Printed components iterated quickly, tested and refined.'],
-                    ['Research & Development', 'Experimental platforms for new ideas and payloads.'],
+                    ['Frames & Mounts', 'Printed frames, arms, brackets and mounts for drone and RC builds.'],
+                    ['Rapid Prototyping', 'Quick design iterations for fit checks and refinement.'],
+                    ['Custom Components', 'Enclosures, covers and project-specific parts designed in CAD.'],
                 ] as $i => [$title, $text])
                     <li class="grid grid-cols-[3rem_1fr] gap-4 border-b border-steel/20 py-6">
                         <span class="font-mono text-xs text-steel">[0{{ $i + 1 }}]</span>
@@ -248,7 +248,7 @@
             </ul>
 
             <div class="mt-12" data-reveal>
-                <x-button :href="route('drones')" variant="light" size="lg">Explore Drone Engineering</x-button>
+                <x-button :href="route('drones')" variant="light" size="lg">Explore Drone &amp; RC Parts</x-button>
             </div>
         </div>
 
@@ -260,7 +260,7 @@
                 {{-- Scanning ring --}}
                 <div aria-hidden="true" class="pointer-events-none absolute inset-[12%] rounded-full border border-dashed border-steel/25 motion-safe:animate-spin-slow"></div>
                 {{-- Callouts --}}
-                @foreach ([['Airframe', 'top-[8%] left-[6%]'], ['Propulsion', 'top-[14%] right-[6%]'], ['Flight control', 'bottom-[16%] left-[6%]'], ['Payload', 'bottom-[8%] right-[8%]']] as [$label, $pos])
+                @foreach ([['Frame', 'top-[8%] left-[6%]'], ['Motor mounts', 'top-[14%] right-[6%]'], ['Electronics housing', 'bottom-[16%] left-[6%]'], ['Payload mount', 'bottom-[8%] right-[8%]']] as [$label, $pos])
                     <span class="mono absolute {{ $pos }} flex items-center gap-2 bg-deep/80 px-2 py-1 text-[10px] text-steel ring-1 ring-steel/30 backdrop-blur" data-reveal>
                         <span class="h-1.5 w-1.5 rounded-full bg-steel"></span>{{ $label }}
                     </span>
@@ -277,10 +277,10 @@
     <div class="container-x">
         <div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <div>
-                <x-eyebrow number="06" class="text-smoke">Selected Work</x-eyebrow>
-                <h2 class="display mt-8 text-display-2" data-split>Featured <em>Projects</em></h2>
+                <x-eyebrow number="06" class="text-smoke">Projects</x-eyebrow>
+                <h2 class="display mt-8 text-display-2" data-split>What We <em>Work On</em></h2>
             </div>
-            <p class="max-w-sm leading-relaxed text-ink/65" data-reveal>A glimpse of creative and engineering work across sculpture, product development and flight.</p>
+            <p class="max-w-sm leading-relaxed text-ink/65" data-reveal>From automotive parts and enclosures to statues and personalised gifts — real problems turned into practical parts.</p>
         </div>
 
         {{-- Editorial grid: varied spans and offsets rather than uniform cards --}}
@@ -324,18 +324,18 @@
         <div class="lg:col-span-4">
             <div class="lg:sticky lg:top-32">
                 <x-eyebrow number="07" class="text-bone/50">Why ARTFORM 3Di</x-eyebrow>
-                <h2 class="display mt-8 text-display-3" data-split>Five principles behind <em class="text-brass-soft">every piece.</em></h2>
-                <p class="mt-8 max-w-sm leading-relaxed text-bone/55" data-reveal>Technology gives us precision. Craft gives the work its soul. We hold both to the same standard.</p>
+                <h2 class="display mt-8 text-display-3" data-split>What we bring to <em class="text-brass-soft">every project.</em></h2>
+                <p class="mt-8 max-w-sm leading-relaxed text-bone/55" data-reveal>We listen carefully, understand the problem and explore what can be done — then stay committed to what we promise.</p>
             </div>
         </div>
 
         <ol class="lg:col-span-8" data-spotlight>
             @foreach ([
-                ['Creative Innovation', 'We explore new forms and techniques, pairing artistic intuition with what digital fabrication makes possible.'],
-                ['Precision Manufacturing', 'Calibrated machines, considered materials and careful process control for consistent, accurate results.'],
-                ['Custom Solutions', 'Every brief is different. We tailor design, scale, material and finish to your purpose.'],
-                ['Advanced Technology', 'Modern printing, modelling and engineering tools across art, product and drone work.'],
-                ['Artistic Excellence', 'Hand finishing and an eye for detail turn printed objects into pieces worth keeping.'],
+                ['Rapid Prototyping', 'Convert designs and concepts into physical parts for fit, form and functional evaluation.'],
+                ['Parts Restoration', 'Recreate broken, unavailable or obsolete plastic components from a usable sample, dimensions or reference design.'],
+                ['In-house CAD Design', 'Design and modelling support in SolidWorks and Fusion 360 — not only printing from supplied files.'],
+                ['15-Machine Print Farm', 'Parallel jobs and small-batch production, with machine build volumes from about 250 mm to 400 mm cube.'],
+                ['Material Flexibility', 'PLA, PETG, ABS, ASA, TPU, Nylon and Nylon-CF, chosen for the part’s functional requirements.'],
             ] as $i => [$title, $text])
                 <li class="group grid gap-4 border-t border-bone/10 py-10 transition-opacity duration-700 last:border-b sm:grid-cols-[5rem_1fr] lg:py-12">
                     <span class="font-mono text-xs text-brass">0{{ $i + 1 }}</span>

@@ -20,11 +20,24 @@
         <div class="flex min-w-0 flex-col">
             <x-admin.topbar :title="trim($__env->yieldContent('title', 'Dashboard'))" />
             <main id="admin-main" class="flex-1 px-4 py-8 sm:px-8 lg:px-10 lg:py-10">
+                @if (session('status'))
+                    <div x-data="{ show: true }" x-show="show" class="mb-6 flex items-center gap-3 rounded-xl bg-[#2f8350]/10 px-4 py-3 text-sm" role="status">
+                        <x-icon name="circle-check" class="shrink-0 text-[#2f8350]" />
+                        <span class="flex-1">{{ session('status') }}</span>
+                        <button type="button" @click="show = false" class="text-smoke hover:text-ink" aria-label="Dismiss"><x-icon name="x" /></button>
+                    </div>
+                @endif
+                @if ($errors->any())
+                    <div class="mb-6 flex items-center gap-3 rounded-xl bg-[#b5432f]/10 px-4 py-3 text-sm" role="alert">
+                        <x-icon name="circle-x" class="shrink-0 text-[#b5432f]" />
+                        <span>Please check the highlighted fields and try again.</span>
+                    </div>
+                @endif
                 @yield('content')
             </main>
             <footer class="flex flex-col gap-2 border-t border-ink/10 px-4 py-6 text-xs text-smoke sm:flex-row sm:justify-between sm:px-8 lg:px-10">
                 <p>&copy; {{ now()->year }} ARTFORM 3Di · Admin</p>
-                <p>Preview build — sample data, no live connections.</p>
+                <p>Signed in as {{ auth()->user()->email }}</p>
             </footer>
         </div>
     </div>

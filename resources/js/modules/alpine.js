@@ -1,11 +1,33 @@
 /**
  * Alpine stores and components.
  *
- * Cart, wishlist and account interactions are visual only in this phase:
- * they update local UI state and show a notice, but nothing is persisted.
- * The auth forms validate in the browser and walk through the flow; wire their
- * submit handlers to Laravel auth routes in the backend phase.
+ * The bag lives on the server (session) — addToBag / buyNow POST to /cart.
+ * The wishlist is kept in this browser (localStorage).
+ * Sign-in and register validate in the browser, then POST to Laravel.
  */
+
+const csrf = () => document.querySelector('meta[name="csrf-token"]')?.content ?? '';
+
+async function postJson(url, data) {
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json', 'X-CSRF-TOKEN': csrf() },
+        body: JSON.stringify(data),
+    });
+    const body = await response.json().catch(() => ({}));
+    return { ok: response.ok, status: response.status, body };
+}
+
+const firstErrors = (body) => Object.fromEntries(Object.entries(body.errors ?? {}).map(([key, messages]) => [key, messages[0]]));
+
+function storedWishlist() {
+    try {
+        return JSON.parse(localStorage.getItem('artform-wishlist') ?? '[]');
+    } catch {
+        return [];
+    }
+}
+
 export default function registerAlpine(Alpine) {
     Alpine.store('ui', {
         menuOpen: false,
@@ -13,9 +35,10 @@ export default function registerAlpine(Alpine) {
         accountOpen: false,
         quickView: null,
         toast: null,
-        bagCount: 0,
+        bagCount: Number(document.querySelector('meta[name="cart-count"]')?.content ?? 0),
+        bagBusy: false,
         headerHidden: false,
-        wishlist: [],
+        wishlist: storedWishlist(),
         toastTimer: null,
 
         get locked() {
@@ -28,13 +51,28 @@ export default function registerAlpine(Alpine) {
             this.toastTimer = setTimeout(() => (this.toast = null), 3800);
         },
 
-        addToBag(name) {
-            this.bagCount++;
-            this.notify(`“${name}” added to your bag. Online checkout opens soon.`);
+        async addToBag(slug, quantity = 1) {
+            if (this.bagBusy) return false;
+            this.bagBusy = true;
+            try {
+                const { ok, body } = await postJson('/cart', { slug, quantity });
+                if (!ok) {
+                    this.notify(Object.values(firstErrors(body))[0] ?? 'Sorry, that could not be added. Please try again.');
+                    return false;
+                }
+                this.bagCount = body.count;
+                this.notify(body.message);
+                return true;
+            } catch {
+                this.notify('Sorry, that could not be added. Please check your connection and try again.');
+                return false;
+            } finally {
+                this.bagBusy = false;
+            }
         },
 
-        buyNow() {
-            this.notify('Checkout will be available once online ordering launches.');
+        async buyNow(slug, quantity = 1) {
+            if (await this.addToBag(slug, quantity)) window.location.href = '/checkout';
         },
 
         account() {
@@ -49,6 +87,11 @@ export default function registerAlpine(Alpine) {
         toggleWish(slug) {
             const index = this.wishlist.indexOf(slug);
             index > -1 ? this.wishlist.splice(index, 1) : this.wishlist.push(slug);
+            try {
+                localStorage.setItem('artform-wishlist', JSON.stringify(this.wishlist));
+            } catch {
+                // Private browsing: the wishlist still works for this visit.
+            }
             this.notify(index > -1 ? 'Removed from your wishlist.' : 'Saved to your wishlist.');
         },
 
@@ -165,7 +208,7 @@ export default function registerAlpine(Alpine) {
     Alpine.data('authForm', (type, options = {}) => ({
         type,
         form: { name: '', email: '', phone: '', password: '', password_confirmation: '', remember: true, terms: false },
-        errors: {},
+        errors: options.errors ?? {},
         showPassword: false,
         sending: false,
         done: false,
@@ -202,12 +245,31 @@ export default function registerAlpine(Alpine) {
             return Object.keys(e).length === 0;
         },
 
-        submit() {
+        async submit() {
             if (!this.validate()) {
                 this.$nextTick(() => this.$root.querySelector('[aria-invalid="true"]')?.focus());
                 return;
             }
-            // Frontend preview only — nothing is sent or stored.
+
+            // Sign in and register post to Laravel; the server answers with where to go next.
+            if (['login', 'register'].includes(this.type)) {
+                this.sending = true;
+                try {
+                    const { ok, status, body } = await postJson(this.$root.getAttribute('action'), this.form);
+                    if (ok && body.redirect) {
+                        window.location.href = body.redirect;
+                        return;
+                    }
+                    this.errors = status === 422 ? firstErrors(body) : { email: 'Something went wrong. Please refresh the page and try again.' };
+                    this.$nextTick(() => this.$root.querySelector('[aria-invalid="true"]')?.focus());
+                } catch {
+                    this.errors = { email: 'Could not connect. Please check your connection and try again.' };
+                }
+                this.sending = false;
+                return;
+            }
+
+            // Forgot / reset password: walk-through only — no email is sent yet.
             this.sending = true;
             setTimeout(() => {
                 this.sending = false;
@@ -220,40 +282,53 @@ export default function registerAlpine(Alpine) {
         },
     }));
 
+    // Quote / contact form: validates in the browser, then saves to Admin → Enquiries via POST /enquiries.
     Alpine.data('contactForm', () => ({
-        form: { name: '', email: '', phone: '', subject: '', message: '' },
+        form: { name: '', email: '', phone: '', subject: '', message: '', website: '' },
         errors: {},
         sending: false,
         submitted: false,
+        failed: false,
 
         validate() {
             const errors = {};
             if (!this.form.name.trim()) errors.name = 'Please tell us your name.';
             if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.form.email)) errors.email = 'Please enter a valid email address.';
             if (this.form.phone && !/^[+\d\s()-]{7,}$/.test(this.form.phone)) errors.phone = 'Please enter a valid phone number.';
-            if (!this.form.subject) errors.subject = 'Please choose a subject.';
-            if (this.form.message.trim().length < 10) errors.message = 'Tell us a little more about your idea.';
+            if (!this.form.subject) errors.subject = 'Please choose the service you need.';
+            if (this.form.message.trim().length < 10) errors.message = 'Please describe your project and how the part will be used.';
             this.errors = errors;
 
             return Object.keys(errors).length === 0;
         },
 
-        submit() {
+        async submit() {
             if (!this.validate()) {
                 this.$nextTick(() => this.$root.querySelector('[aria-invalid="true"]')?.focus());
                 return;
             }
-            // Frontend preview only — wire this to a Laravel route in the backend phase.
             this.sending = true;
-            setTimeout(() => {
-                this.sending = false;
+            this.failed = false;
+            try {
+                const { ok, status, body } = await postJson('/enquiries', this.form);
+                if (status === 422) {
+                    this.errors = firstErrors(body);
+                    this.$nextTick(() => this.$root.querySelector('[aria-invalid="true"]')?.focus());
+                    return;
+                }
+                if (!ok) throw new Error(`HTTP ${status}`);
                 this.submitted = true;
-            }, 900);
+            } catch {
+                this.failed = true;
+            } finally {
+                this.sending = false;
+            }
         },
 
         restart() {
-            this.form = { name: '', email: '', phone: '', subject: '', message: '' };
+            this.form = { name: '', email: '', phone: '', subject: '', message: '', website: '' };
             this.submitted = false;
+            this.failed = false;
         },
     }));
 }

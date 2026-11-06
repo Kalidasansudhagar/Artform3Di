@@ -644,3 +644,21 @@
         scrollbar-color: var(--scroll-thumb) var(--scroll-track);
     }
 }
+
+/* ------------------------------------------------------------------ */
+/* Admin forms                                                         */
+/* ------------------------------------------------------------------ */
+
+@layer components {
+    .admin-input {
+        @apply block w-full rounded-lg bg-white px-4 py-3 text-sm text-ink ring-1 ring-ink/15 transition outline-none placeholder:text-smoke focus:ring-2 focus:ring-ink/40;
+    }
+
+    .admin-input[aria-invalid='true'] {
+        @apply ring-2 ring-[#b5432f]/50;
+    }
+
+    .admin-card {
+        @apply rounded-2xl bg-white p-5 ring-1 ring-ink/[0.06] lg:p-7;
+    }
+}

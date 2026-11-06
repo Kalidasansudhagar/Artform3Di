@@ -13,12 +13,13 @@
 
 return [
 
-    'tagline' => 'Premium 3D Art, Creative Manufacturing and Engineering Innovation.',
+    'tagline' => 'Where design meets technology',
 
+    // Phone and address are confirmed in the client's website brief; email and hours are still to be supplied.
     'contact' => [
         'email' => env('ARTFORM_EMAIL'),
-        'phone' => env('ARTFORM_PHONE'),
-        'address' => env('ARTFORM_ADDRESS'),
+        'phone' => env('ARTFORM_PHONE', '+91 63812 98393'),
+        'address' => env('ARTFORM_ADDRESS', 'No. 423, Village High Road, Sholinganallur, Chennai – 600119, Tamil Nadu, India'),
         'hours' => env('ARTFORM_HOURS'),
     ],
 

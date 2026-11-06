@@ -25,7 +25,7 @@
             </dl>
 
             <div class="mt-auto flex flex-col gap-3 pt-10 sm:flex-row">
-                <x-button variant="dark" icon="shopping-bag" class="flex-1" @click="$store.ui.addToBag($store.ui.quickView.name)">Add to bag</x-button>
+                <x-button variant="dark" icon="shopping-bag" class="flex-1" @click="$store.ui.addToBag($store.ui.quickView.slug)">Add to bag</x-button>
                 <a :href="$store.ui.quickView?.url" class="btn btn-outline-dark flex-1"><span>View details</span><span class="btn-icon"><x-icon name="arrow-up-right" /></span></a>
             </div>
         </div>

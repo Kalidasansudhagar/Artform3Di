@@ -1,24 +1,26 @@
-{{-- Admin navigation. Only the dashboard exists in this phase; other sections are listed as "Soon". --}}
+{{-- Admin navigation. --}}
 @php
+    $newEnquiries = \App\Models\Enquiry::query()->where('status', 'new')->count();
+    $pendingOrders = \App\Models\Order::query()->where('status', 'pending')->count();
     $groups = [
         'Overview' => [
-            ['Dashboard', 'layout-dashboard', 'admin.dashboard', null],
-        ],
-        'Commerce' => [
-            ['Orders', 'package', null, '6'],
-            ['Products', 'box', null, null],
-            ['Customers', 'users', null, null],
+            ['Dashboard', 'layout-dashboard', 'admin.dashboard', 'admin.dashboard', null],
         ],
         'Studio' => [
-            ['Enquiries', 'inbox', null, '2'],
-            ['Projects', 'folder-kanban', null, null],
-            ['Services', 'printer', null, null],
+            ['Enquiries', 'inbox', 'admin.enquiries.index', 'admin.enquiries.*', $newEnquiries ?: null],
+            ['Customers', 'users', 'admin.customers.index', 'admin.customers.*', null],
+            ['Projects', 'folder-kanban', 'admin.projects.index', 'admin.projects.*', null],
+        ],
+        'Shop' => [
+            ['Orders', 'package', 'admin.orders.index', 'admin.orders.*', $pendingOrders ?: null],
+            ['Products', 'box', 'admin.products.index', 'admin.products.*', null],
         ],
         'Website' => [
-            ['Pages & content', 'file-text', null, null],
-            ['Settings', 'settings', null, null],
+            ['Settings', 'settings', 'admin.settings.edit', 'admin.settings.*', null],
+            ['My profile', 'user-round', 'admin.profile.edit', 'admin.profile.*', null],
         ],
     ];
+    $user = auth()->user();
 @endphp
 
 {{-- Mobile overlay --}}
@@ -39,28 +41,19 @@
         @foreach ($groups as $group => $items)
             <p class="mono mt-6 mb-2 px-3 text-[10px] text-bone/35 first:mt-0">{{ $group }}</p>
             <ul class="space-y-0.5">
-                @foreach ($items as [$label, $icon, $route, $badge])
+                @foreach ($items as [$label, $icon, $route, $match, $badge])
+                    @php $active = request()->routeIs($match); @endphp
                     <li>
-                        @if ($route)
-                            @php $active = request()->routeIs($route); @endphp
-                            <a href="{{ route($route) }}" @if ($active) aria-current="page" @endif
-                               @class([
-                                   'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition',
-                                   'bg-bone/10 text-bone' => $active,
-                                   'text-bone/70 hover:bg-bone/5 hover:text-bone' => ! $active,
-                               ])>
-                                <x-icon :name="$icon" @class(['text-[17px]', 'text-brass-soft' => $active]) />
-                                <span class="flex-1">{{ $label }}</span>
-                                @if ($active)<span class="h-1.5 w-1.5 rounded-full bg-brass"></span>@endif
-                            </a>
-                        @else
-                            <span class="flex cursor-not-allowed items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-bone/40" aria-disabled="true" title="Available in the next phase">
-                                <x-icon :name="$icon" class="text-[17px]" />
-                                <span class="flex-1">{{ $label }}</span>
-                                @if ($badge)<span class="rounded-full bg-bone/10 px-2 text-[11px] text-bone/60 tabular-nums">{{ $badge }}</span>@endif
-                                <span class="text-[9px] font-semibold tracking-[0.16em] uppercase">Soon</span>
-                            </span>
-                        @endif
+                        <a href="{{ route($route) }}" @if ($active) aria-current="page" @endif
+                           @class([
+                               'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition',
+                               'bg-bone/10 text-bone' => $active,
+                               'text-bone/70 hover:bg-bone/5 hover:text-bone' => ! $active,
+                           ])>
+                            <x-icon :name="$icon" @class(['text-[17px]', 'text-brass-soft' => $active]) />
+                            <span class="flex-1">{{ $label }}</span>
+                            @if ($badge)<span class="rounded-full bg-brass px-2 text-[11px] font-semibold text-ink tabular-nums">{{ $badge }}</span>@endif
+                        </a>
                     </li>
                 @endforeach
             </ul>
@@ -72,12 +65,15 @@
             <x-icon name="external-link" class="text-[17px]" /> View website
         </a>
         <div class="mt-3 flex items-center gap-3 rounded-lg bg-bone/5 p-3">
-            <span class="flex h-9 w-9 items-center justify-center rounded-full bg-brass text-sm font-semibold text-ink">A</span>
+            <span class="flex h-9 w-9 items-center justify-center rounded-full bg-brass text-sm font-semibold text-ink">{{ strtoupper(mb_substr($user->name, 0, 1)) }}</span>
             <div class="min-w-0 flex-1 leading-tight">
-                <p class="truncate text-sm">Admin</p>
-                <p class="truncate text-xs text-bone/45">Administrator</p>
+                <p class="truncate text-sm">{{ $user->name }}</p>
+                <p class="truncate text-xs text-bone/45">{{ $user->email }}</p>
             </div>
-            <a href="{{ route('login') }}" class="icon-btn h-9 w-9 text-bone/60 hover:text-bone" aria-label="Sign out" title="Sign out"><x-icon name="log-out" /></a>
+            <form method="POST" action="{{ route('admin.logout') }}">
+                @csrf
+                <button type="submit" class="icon-btn h-9 w-9 text-bone/60 hover:text-bone" aria-label="Sign out" title="Sign out"><x-icon name="log-out" /></button>
+            </form>
         </div>
     </div>
 </aside>

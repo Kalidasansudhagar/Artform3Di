@@ -18,6 +18,5 @@
         <a href="{{ route('register') }}" class="link-line is-static ml-1 font-semibold text-ink">Create an account</a>
     </div>
 
-    <x-preview-note class="mt-10" />
 </x-auth-shell>
 @endsection

@@ -1,6 +1,6 @@
 {{--
     Product tile. Tone "light" sits on warm-white sections, "dark" on charcoal ones.
-    Wishlist, quick view and add-to-bag are visual interactions only in this phase.
+    Add-to-bag posts to the server bag; the wishlist is saved in the browser.
 --}}
 @props(['product', 'tone' => 'light', 'eager' => false])
 
@@ -30,7 +30,7 @@
                 <x-icon name="eye" class="text-sm" /> Quick view
             </button>
             <button type="button" class="flex h-11 w-11 items-center justify-center bg-ink text-paper transition hover:bg-graphite"
-                    @click="$store.ui.addToBag(@js($product['name']))" aria-label="Add {{ $product['name'] }} to bag">
+                    @click="$store.ui.addToBag(@js($product['slug']))" aria-label="Add {{ $product['name'] }} to bag">
                 <x-icon name="plus" />
             </button>
         </div>

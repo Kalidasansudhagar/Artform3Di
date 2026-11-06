@@ -1,9 +1,9 @@
 {{-- Closing call to action. Tones: "light" (warm white), "dark" (charcoal), "steel" (drone engineering). --}}
 @props([
     'tone' => 'light',
-    'eyebrow' => 'Start a conversation',
-    'heading' => 'Have an Idea? <em>Let’s Create It.</em>',
-    'text' => 'From custom sculptures to innovative engineering solutions, let’s bring your ideas to life.',
+    'eyebrow' => 'Get a quote',
+    'heading' => 'Have a part or project <em>in mind?</em>',
+    'text' => 'Share a 3D file, drawing, sketch, photograph or sample — we’ll review feasibility, material and quantity before quoting.',
 ])
 
 @php $light = $tone === 'light'; @endphp
@@ -26,8 +26,12 @@
         <h2 class="display mx-auto mt-8 max-w-5xl text-display-2" data-split>{!! $heading !!}</h2>
         <p @class(['lead mx-auto mt-8 max-w-xl', 'text-ink/65' => $light, 'text-bone/65' => ! $light]) data-reveal>{{ $text }}</p>
         <div class="mt-12 flex flex-col items-center justify-center gap-3 sm:flex-row" data-reveal>
-            <x-button :href="route('contact').'#enquiry'" :variant="$light ? 'dark' : 'light'" size="lg">Start Your Project</x-button>
-            <x-button :href="route('contact')" :variant="$light ? 'outline-dark' : 'outline-light'" size="lg" icon="arrow-right">Contact Us</x-button>
+            <x-button :href="route('contact').'#enquiry'" :variant="$light ? 'dark' : 'light'" size="lg">Get a Quote</x-button>
+            @if ($whatsapp = \App\Support\Contact::whatsappUrl())
+                <x-button :href="$whatsapp" target="_blank" rel="noopener" :variant="$light ? 'outline-dark' : 'outline-light'" size="lg" icon="arrow-right">Chat on WhatsApp</x-button>
+            @else
+                <x-button :href="route('contact')" :variant="$light ? 'outline-dark' : 'outline-light'" size="lg" icon="arrow-right">Contact Us</x-button>
+            @endif
         </div>
     </div>
 </section>

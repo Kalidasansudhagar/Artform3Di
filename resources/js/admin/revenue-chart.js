@@ -1,6 +1,7 @@
 /**
- * Single-series revenue area chart for the admin dashboard.
- * Reads data-series (points per range) and listens for `admin-range` to switch.
+ * Single-series area chart for the admin dashboard.
+ * Reads data-series (points per range), data-format ("number" or "currency") and
+ * data-label, and listens for `admin-range` to switch ranges.
  * Hover / arrow keys move a crosshair that snaps to the nearest point.
  */
 
@@ -9,7 +10,8 @@ const COLORS = { series: '#9a6f24', grid: '#ece7df', muted: '#8a867e', surface: 
 const MARGIN = { top: 12, right: 14, bottom: 30, left: 56 };
 
 const compact = new Intl.NumberFormat('en-IN', { notation: 'compact', maximumFractionDigits: 1 });
-const full = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 });
+const currency = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 });
+const plain = new Intl.NumberFormat('en-IN');
 
 const el = (tag, attrs = {}) => {
     const node = document.createElementNS(NS, tag);
@@ -26,6 +28,10 @@ const niceStep = (value) => {
 
 export function initRevenueChart(container) {
     const data = JSON.parse(container.dataset.series);
+    const isCurrency = container.dataset.format === 'currency';
+    const label = container.dataset.label ?? 'values';
+    const formatTick = (v) => (isCurrency ? (v === 0 ? '₹0' : `₹${compact.format(v)}`) : compact.format(v));
+    const formatFull = (v) => (isCurrency ? currency.format(v) : `${plain.format(v)} ${label}`);
     let range = container.dataset.range;
     let geometry = null;
     let active = null;
@@ -52,8 +58,11 @@ export function initRevenueChart(container) {
 
         const points = data[range];
         const values = points.map((p) => p.value);
-        const tickStep = niceStep((Math.max(...values) * 1.08) / 4);
-        const ticks = Math.ceil((Math.max(...values) * 1.08) / tickStep);
+        const peak = Math.max(...values) * 1.08;
+        // Counts tick in whole numbers; an all-zero series still gets a readable 0–4 axis.
+        const rawStep = peak > 0 ? niceStep(peak / 4) : 1;
+        const tickStep = isCurrency ? rawStep : Math.max(1, Math.ceil(rawStep));
+        const ticks = peak > 0 ? Math.max(1, Math.ceil(peak / tickStep)) : 4;
         const max = tickStep * ticks;
         const innerW = width - MARGIN.left - MARGIN.right;
         const innerH = height - MARGIN.top - MARGIN.bottom;
@@ -64,14 +73,14 @@ export function initRevenueChart(container) {
 
         svg.replaceChildren();
         svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
-        svg.setAttribute('aria-label', `Revenue chart, ${points.length} periods from ${points[0].label} to ${points.at(-1).label}. Use left and right arrow keys to read values.`);
+        svg.setAttribute('aria-label', `Chart of ${label}, ${points.length} periods from ${points[0].label} to ${points.at(-1).label}. Use left and right arrow keys to read values.`);
 
         // Gridlines + y ticks.
         for (let t = 0; t <= ticks; t++) {
             const v = tickStep * t;
             svg.append(el('line', { x1: MARGIN.left, x2: width - MARGIN.right, y1: y(v), y2: y(v), stroke: COLORS.grid, 'stroke-width': 1 }));
             const label = el('text', { x: MARGIN.left - 10, y: y(v) + 4, 'text-anchor': 'end', fill: COLORS.muted, 'font-size': 11 });
-            label.textContent = v === 0 ? '₹0' : `₹${compact.format(v)}`;
+            label.textContent = formatTick(v);
             svg.append(label);
         }
 
@@ -114,7 +123,7 @@ export function initRevenueChart(container) {
         crossDot.setAttribute('cy', py);
         cross.setAttribute('visibility', 'visible');
 
-        tipValue.textContent = full.format(points[i].value);
+        tipValue.textContent = formatFull(points[i].value);
         tipText.textContent = points[i].label;
         tooltip.classList.remove('hidden');
         const half = tooltip.offsetWidth / 2;

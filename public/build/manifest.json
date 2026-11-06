@@ -90,7 +90,7 @@
     "isDynamicEntry": true
   },
   "resources/css/app.css": {
-    "file": "assets/app-DN6VXzm2.css",
+    "file": "assets/app-D5sAsR9Z.css",
     "name": "app",
     "names": [
       "app.css"
@@ -99,13 +99,13 @@
     "isEntry": true
   },
   "resources/js/admin/revenue-chart.js": {
-    "file": "assets/revenue-chart-COmvq_on.js",
+    "file": "assets/revenue-chart-DlEgzont.js",
     "name": "revenue-chart",
     "src": "resources/js/admin/revenue-chart.js",
     "isDynamicEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-BN_FwcCH.js",
+    "file": "assets/app-BQ5XSBR8.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,

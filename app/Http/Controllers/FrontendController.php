@@ -6,18 +6,17 @@ use App\Support\Catalog;
 use Illuminate\View\View;
 
 /**
- * Frontend pages. Data comes from the placeholder Catalog for now; swap the
- * Catalog calls for Eloquent queries in the backend phase.
+ * Public pages. Products and projects come from the database (managed in the
+ * admin panel) through Catalog, in the array shapes the views expect.
  */
 class FrontendController extends Controller
 {
     public function home(): View
     {
         return view('frontend.home', [
-            'featured' => Catalog::products()->whereIn('slug', [
-                'ganesha-seated-study', 'lakshmi-lotus-form', 'serene-buddha', 'helix-form-iii', 'the-thinker-bust', 'bespoke-portrait-bust',
-            ])->values(),
-            'projects' => Catalog::projects(),
+            'featured' => Catalog::products()->take(6)->values(),
+            // The editorial project grid on the homepage is laid out for up to six tiles.
+            'projects' => array_slice(Catalog::projects(), 0, 6),
         ]);
     }
 
@@ -29,7 +28,7 @@ class FrontendController extends Controller
             'products' => $products,
             'categories' => Catalog::CATEGORIES,
             'collections' => Catalog::collections(),
-            'priceCeiling' => (int) ceil($products->max('price') / 1000) * 1000,
+            'priceCeiling' => max(10000, (int) ceil(($products->max('price') ?? 0) / 1000) * 1000),
         ]);
     }
 
@@ -46,7 +45,7 @@ class FrontendController extends Controller
     public function services(): View
     {
         return view('frontend.services', [
-            'projects' => collect(Catalog::projects())->whereNotIn('category', ['Drone Engineering', 'Research & Development'])->values(),
+            'projects' => collect(Catalog::projects())->values(),
         ]);
     }
 

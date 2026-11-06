@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', '3D Printing Services')
-@section('description', 'Rapid prototyping, custom 3D modelling and premium art & decor — precision 3D printing services by ARTFORM 3Di.')
+@section('title', '3D Printing, CAD & Prototyping Services in Chennai')
+@section('description', 'FDM 3D printing, rapid prototyping, small-batch production, CAD design, parts restoration, automotive prototyping, IoT enclosures, models, gifts and painting by Artform 3Di, Sholinganallur, Chennai.')
 @section('header_theme', 'dark')
 
 @section('content')
@@ -19,7 +19,7 @@
                 <h1 class="display mt-8 text-display-1" data-split data-split-immediate data-delay="0.3">Precision in <em class="text-brass-soft">every layer.</em></h1>
             </div>
             <div class="lg:col-span-4" data-reveal data-delay="0.8">
-                <p class="leading-relaxed text-bone/70">Design, modelling, printing and finishing under one roof — for prototypes, bespoke objects and statement art.</p>
+                <p class="leading-relaxed text-bone/70">FDM 3D printing, CAD design, prototyping, parts restoration and small-batch manufacturing — from one-off prototypes to production batches.</p>
                 <x-button href="#rapid-prototyping" variant="light" class="mt-8" icon="arrow-down" data-no-transition>View services</x-button>
             </div>
         </div>
@@ -32,10 +32,10 @@
         <x-eyebrow number="00" class="text-smoke lg:col-span-3">Introduction</x-eyebrow>
         <div class="lg:col-span-9">
             <p class="display text-display-4 leading-snug md:text-display-3" data-split>
-                We combine the discipline of engineering with the sensitivity of fine art — so a functional bracket and a devotional sculpture receive the <em>same uncompromising care.</em>
+                Whether you are developing a new product, recreating a broken component or building an enclosure, we work with you to find a <em>practical design and manufacturing approach.</em>
             </p>
             <div class="mt-14 grid gap-8 border-t border-ink/10 pt-10 text-ink/65 sm:grid-cols-3" data-reveal>
-                @foreach ([['layers', 'Fine-layer printing', 'Detail-focused settings for crisp surfaces and accurate geometry.'], ['pen-tool', 'In-house modelling', 'Digital sculpting and CAD, prepared specifically for printing.'], ['sparkles', 'Hand finishing', 'Sanding, priming, painting and patina for a refined result.']] as [$icon, $title, $text])
+                @foreach ([['layers', '15-machine print farm', 'FDM printers with build volumes from approximately 250 mm to 400 mm cube.'], ['pen-tool', 'In-house CAD design', 'Dedicated design support using SolidWorks and Fusion 360.'], ['sparkles', 'Painting & finishing', 'Painting for selected printed parts, quoted separately.']] as [$icon, $title, $text])
                     <div>
                         <x-icon :name="$icon" class="text-2xl text-brass" />
                         <h3 class="mt-4 font-semibold text-ink">{{ $title }}</h3>
@@ -51,19 +51,20 @@
 @php
     $services = [
         [
-            'id' => 'rapid-prototyping', 'title' => 'Rapid Prototyping', 'image' => 'assets/images/services/rapid-prototyping.svg',
-            'lead' => 'Turn concepts into physical parts quickly — so you can hold, test and improve them before investing in production.',
-            'points' => ['Form, fit and function prototypes', 'Iterative design revisions', 'Functional mechanical parts', 'Enclosures, jigs and fixtures'],
+            'id' => 'rapid-prototyping', 'title' => 'Prototyping & Production', 'image' => 'assets/images/services/rapid-prototyping.svg',
+            'lead' => 'Fast-turnaround prototypes for product development, engineering validation, fit checks and design iteration — and repeatable small-batch production on our 15-machine print farm.',
+            'points' => ['FDM 3D printing from STL, STEP or CAD files', 'Rapid prototypes for startups, R&D teams and students', 'Small batches, pilot runs, fixtures and enclosures', 'IoT enclosures and product housings'],
         ],
         [
-            'id' => 'custom-modelling', 'title' => 'Custom 3D Modelling', 'image' => 'assets/images/services/custom-modelling.svg',
-            'lead' => 'From a sketch, a photograph or simply an idea, we build accurate, print-ready digital models — sculpted or engineered.',
-            'points' => ['Digital sculpting for art and figurines', 'CAD modelling for technical parts', 'Model repair and print preparation', 'Scaling and detailing for any size'],
+            'id' => 'custom-modelling', 'title' => 'CAD & Parts Restoration', 'image' => 'assets/images/services/custom-modelling.svg',
+            'lead' => 'CAD modelling in SolidWorks and Fusion 360 from an idea, sketch or physical reference — and recreation of broken, damaged or obsolete parts from a sample, measurements or photographs.',
+            'points' => ['Part modelling and design changes', 'Dimensional recreation and print-ready models', 'Automotive prototypes, brackets, covers and clips', 'College and engineering project parts'],
+            'note' => 'Feasibility depends on geometry, material, tolerances, loading and temperature. Reproduced automotive parts are not certified or OEM-equivalent; safety-critical parts need engineering validation.',
         ],
         [
-            'id' => 'art-decor', 'title' => 'Premium Art & Decor', 'image' => 'assets/images/services/art-decor.svg',
-            'lead' => 'Sculptures, vessels and statement pieces for homes, temples, hospitality and corporate interiors — designed and finished to impress.',
-            'points' => ['Devotional and spiritual sculpture', 'Decorative objects and vessels', 'Commissioned installations', 'Corporate gifts and awards'],
+            'id' => 'art-decor', 'title' => 'Models, Gifts & Finishing', 'image' => 'assets/images/services/art-decor.svg',
+            'lead' => 'Statues, sculptures, display and architectural models, miniatures and personalised gifts — with painting available for selected parts.',
+            'points' => ['Statue and large model printing (in sections if needed)', 'Miniatures, scale and custom models', 'Personalised gifts, keychains and desk accessories', 'Painting and finishing, quoted separately'],
         ],
     ];
 @endphp
@@ -87,7 +88,10 @@
                             <li class="flex items-center gap-4 border-b border-ink/10 py-4 text-[15px]"><x-icon name="check" class="text-brass" />{{ $point }}</li>
                         @endforeach
                     </ul>
-                    <a href="{{ route('contact') }}#enquiry" class="link-line is-static mt-10 text-sm font-semibold tracking-[0.12em] uppercase" data-reveal>Discuss your project <x-icon name="arrow-right" /></a>
+                    @isset($service['note'])
+                        <p class="mt-6 text-sm leading-relaxed text-smoke" data-reveal>{{ $service['note'] }}</p>
+                    @endisset
+                    <a href="{{ route('contact') }}#enquiry" class="link-line is-static mt-10 text-sm font-semibold tracking-[0.12em] uppercase" data-reveal>Request a quote <x-icon name="arrow-right" /></a>
                 </div>
             </article>
         @endforeach
@@ -96,15 +100,15 @@
 
 {{-- Materials --}}
 @php
-    // Indicative material range — confirm the final list with the client.
+    // Material range from the client brief.
     $materials = [
-        ['PLA / PLA+', 'Fine detail, smooth surface, wide colour range', 'Sculpture, decor, concept models', '#d8cbb4'],
-        ['Silk & Metallic PLA', 'Lustrous finish with a metallic sheen', 'Decorative and devotional pieces', '#b59a6d'],
-        ['PETG', 'Tough, slightly flexible, moisture resistant', 'Functional parts and enclosures', '#8fa0ae'],
-        ['ABS / ASA', 'Heat and impact resistant, post-processable', 'Engineering prototypes, outdoor parts', '#5f5a52'],
-        ['TPU', 'Flexible and elastic, absorbs impact', 'Gaskets, grips, protective parts', '#2a2a2e'],
-        ['Carbon-fibre composites', 'Stiff and lightweight with a matte finish', 'Drone frames, brackets, jigs', '#1a1a1c'],
-        ['High-detail resin', 'Exceptionally fine detail and crisp edges', 'Miniatures, figurines, masters', '#ece7df'],
+        ['PLA', 'Easy to print; suitable where high heat resistance is not required', 'General-purpose prototypes, visual models and decorative parts', '#d8cbb4'],
+        ['PETG', 'Balance of toughness, layer bonding and moisture resistance', 'Functional parts', '#8fa0ae'],
+        ['ABS', 'Tougher, with higher temperature tolerance than PLA; warping control matters', 'Functional engineering parts', '#5f5a52'],
+        ['ASA', 'UV and weather resistant, subject to design and process validation', 'Outdoor-oriented applications', '#b59a6d'],
+        ['TPU', 'Flexible; hardness and geometry affect performance', 'Covers, bumpers, grips, seals and compliant parts', '#2a2a2e'],
+        ['Nylon (PA)', 'Tough and wear resistant; moisture conditioning matters', 'Engineering and functional applications', '#ece7df'],
+        ['Nylon-CF', 'Stiffer and dimensionally stable; strength depends on orientation and design', 'Selected engineering parts', '#1a1a1c'],
     ];
 @endphp
 <section class="section bg-ink text-bone">
@@ -112,9 +116,9 @@
         <div class="grid gap-10 lg:grid-cols-12">
             <div class="lg:col-span-5">
                 <x-eyebrow class="text-bone/50">Printing Materials</x-eyebrow>
-                <h2 class="display mt-8 text-display-2" data-split>The right material <em class="text-brass-soft">for every idea.</em></h2>
+                <h2 class="display mt-8 text-display-2" data-split>The right material <em class="text-brass-soft">for the part.</em></h2>
             </div>
-            <p class="max-w-md self-end leading-relaxed text-bone/55 lg:col-span-4 lg:col-start-9" data-reveal>We recommend materials based on the look, strength and environment your piece needs. Not sure? We’ll advise.</p>
+            <p class="max-w-md self-end leading-relaxed text-bone/55 lg:col-span-4 lg:col-start-9" data-reveal>No single material suits every application. We recommend one based on the part’s mechanical, thermal, chemical, dimensional and environmental requirements.</p>
         </div>
 
         <div class="mt-16 border-t border-bone/15" role="table" aria-label="Printing materials">
@@ -141,8 +145,8 @@
 <section class="section bg-bone">
     <div class="container-x">
         <div class="mb-20 max-w-2xl lg:mb-24">
-            <x-eyebrow class="text-smoke">Manufacturing Process</x-eyebrow>
-            <h2 class="display mt-8 text-display-2" data-split>Four steps, <em>one standard.</em></h2>
+            <x-eyebrow class="text-smoke">How It Works</x-eyebrow>
+            <h2 class="display mt-8 text-display-2" data-split>From requirement <em>to handover.</em></h2>
         </div>
         <x-process-timeline />
     </div>
@@ -153,8 +157,8 @@
     <div class="container-x">
         <div class="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
             <div>
-                <x-eyebrow class="text-smoke">Project Showcase</x-eyebrow>
-                <h2 class="display mt-8 text-display-2" data-split>Made in <em>the studio.</em></h2>
+                <x-eyebrow class="text-smoke">Projects</x-eyebrow>
+                <h2 class="display mt-8 text-display-2" data-split>Made in <em>Sholinganallur.</em></h2>
             </div>
             <div class="flex gap-2">
                 <button type="button" data-prev class="icon-btn ring-1 ring-ink/15 [&.is-disabled]:pointer-events-none [&.is-disabled]:opacity-30" aria-label="Previous"><x-icon name="arrow-left" /></button>
@@ -180,6 +184,6 @@
     </div>
 </section>
 
-<x-contact-cta tone="dark" eyebrow="Your project" heading="Ready to print <em>something remarkable?</em>" text="Share your idea, drawing or file — we’ll recommend the best approach, material and finish." />
+<x-contact-cta tone="dark" eyebrow="Your project" heading="Request a <em>3D printing quote.</em>" text="Share an STL, STEP or other CAD file, a drawing or a sample — we’ll confirm scope, material, quantity, lead time and price before starting." />
 
 @endsection

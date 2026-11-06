@@ -3,10 +3,10 @@
 
 @php
     $steps = [
-        ['n' => '01', 'title' => 'Concept & Design', 'text' => 'We begin with your idea — sketches, references or a simple conversation — and define form, scale and finish.', 'image' => 'assets/images/process/concept.svg'],
-        ['n' => '02', 'title' => 'Digital Modelling', 'text' => 'The concept is sculpted and engineered in 3D, refined until every curve and tolerance is right.', 'image' => 'assets/images/process/modelling.svg'],
-        ['n' => '03', 'title' => 'Precision Printing', 'text' => 'Advanced printers build the piece layer by layer, with materials chosen for detail and durability.', 'image' => 'assets/images/process/printing.svg'],
-        ['n' => '04', 'title' => 'Final Creation', 'text' => 'Each piece is finished by hand — cleaned, refined and coated — ready to be delivered.', 'image' => 'assets/images/process/final.svg'],
+        ['n' => '01', 'title' => 'Share your requirement', 'text' => 'Send a 3D file, drawing, sketch, photograph or physical sample, along with the intended application and quantity.', 'image' => 'assets/images/process/concept.svg'],
+        ['n' => '02', 'title' => 'Design & feasibility review', 'text' => 'We review geometry, dimensions, material needs, tolerances, print orientation and any required CAD work.', 'image' => 'assets/images/process/modelling.svg'],
+        ['n' => '03', 'title' => 'Quotation & approval', 'text' => 'We confirm the proposed scope, material, quantity, estimated lead time and price before starting.', 'image' => 'assets/images/process/printing.svg'],
+        ['n' => '04', 'title' => 'Printing, finishing & handover', 'text' => 'The approved part is printed, any agreed painting is carried out, and it is checked before collection or dispatch.', 'image' => 'assets/images/process/final.svg'],
     ];
     $dark = $tone === 'dark';
 @endphp

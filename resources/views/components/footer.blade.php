@@ -4,9 +4,9 @@
             <div class="lg:col-span-4">
                 <a href="{{ route('home') }}" aria-label="ARTFORM 3Di — home"><x-logo tone="light" size="lg" /></a>
                 <p class="mt-8 max-w-sm text-[15px] leading-relaxed text-bone/60">
-                    Premium 3D art, creative manufacturing and engineering innovation — transforming imagination into extraordinary creations, layer by layer.
+                    A Chennai-based 3D printing and product-development studio specialising in FDM 3D printing, rapid prototyping, CAD design, parts restoration and small-batch manufacturing.
                 </p>
-                <x-button :href="route('contact')" variant="outline-light" size="sm" class="mt-8">Start a project</x-button>
+                <x-button :href="route('contact')" variant="outline-light" size="sm" class="mt-8">Get a Quote</x-button>
             </div>
 
             <nav class="lg:col-span-2" aria-label="Footer">
@@ -22,10 +22,10 @@
             <div class="lg:col-span-3">
                 <h2 class="mono text-bone/45">Services</h2>
                 <ul class="mt-6 space-y-3.5 text-[15px]">
-                    <li><a class="link-line" href="{{ route('services') }}#rapid-prototyping">Rapid Prototyping</a></li>
-                    <li><a class="link-line" href="{{ route('services') }}#custom-modelling">Custom 3D Modelling</a></li>
-                    <li><a class="link-line" href="{{ route('services') }}#art-decor">Premium Art &amp; Decor</a></li>
-                    <li><a class="link-line" href="{{ route('drones') }}">Drone Engineering</a></li>
+                    <li><a class="link-line" href="{{ route('services') }}#rapid-prototyping">Rapid Prototyping &amp; Small Batches</a></li>
+                    <li><a class="link-line" href="{{ route('services') }}#custom-modelling">CAD Design &amp; Parts Restoration</a></li>
+                    <li><a class="link-line" href="{{ route('services') }}#art-decor">Models, Gifts &amp; Finishing</a></li>
+                    <li><a class="link-line" href="{{ route('drones') }}">Drone &amp; RC Parts</a></li>
                 </ul>
             </div>
 
@@ -47,7 +47,7 @@
 
         <div class="mt-10 flex flex-col gap-4 border-t border-bone/10 pt-8 text-xs text-bone/45 sm:flex-row sm:items-center sm:justify-between">
             <p>&copy; {{ now()->year }} ARTFORM 3Di. All rights reserved.</p>
-            <p class="mono">Art · Technology · Innovation</p>
+            <p class="mono">Where design meets technology</p>
             <a href="#main" class="inline-flex items-center gap-2 transition hover:text-bone" data-no-transition>Back to top <x-icon name="arrow-up" /></a>
         </div>
     </div>

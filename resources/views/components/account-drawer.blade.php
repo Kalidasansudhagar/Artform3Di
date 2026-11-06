@@ -28,7 +28,5 @@
                 </ul>
             </div>
         </div>
-
-        <x-preview-note class="mx-6 mb-8 sm:mx-10" />
     </div>
 </div>

@@ -71,7 +71,7 @@
                 <h1 class="display mt-6 text-display-3" data-split data-split-immediate data-delay="0.2">{{ $product['name'] }}</h1>
                 <p class="mt-6 text-2xl tabular-nums" data-reveal data-delay="0.3">{{ $product['price_label'] }}</p>
                 <p class="mt-8 leading-relaxed text-ink/70" data-reveal data-delay="0.35">
-                    {{ $product['excerpt'] }} Modelled in-house, printed with fine layer resolution and finished by hand for a refined, gallery-ready surface.
+                    {{ $product['excerpt'] }} Modelled in CAD and printed on our FDM print farm; available colours and finishes are confirmed when you order.
                 </p>
 
                 <div x-data="{ finish: 0, qty: 1 }" class="mt-10 space-y-8 border-t border-ink/10 pt-8" data-reveal data-delay="0.4">
@@ -92,17 +92,25 @@
                         <div class="flex h-14 items-center justify-between rounded-full px-2 ring-1 ring-ink/15 sm:w-36">
                             <button type="button" class="icon-btn h-10 w-10" @click="qty = Math.max(1, qty - 1)" aria-label="Decrease quantity"><x-icon name="minus" /></button>
                             <span class="tabular-nums" x-text="qty" aria-live="polite"></span>
-                            <button type="button" class="icon-btn h-10 w-10" @click="qty++" aria-label="Increase quantity"><x-icon name="plus" /></button>
+                            <button type="button" class="icon-btn h-10 w-10" @click="qty = Math.min(20, qty + 1)" aria-label="Increase quantity"><x-icon name="plus" /></button>
                         </div>
-                        <x-button variant="dark" size="lg" icon="shopping-bag" class="flex-1" @click="$store.ui.addToBag({{ Js::from($product['name']) }})">Add to Cart</x-button>
+                        @if ($product['price'])
+                            <x-button variant="dark" size="lg" icon="shopping-bag" class="flex-1" ::disabled="$store.ui.bagBusy" @click="$store.ui.addToBag({{ Js::from($product['slug']) }}, qty)">Add to Cart</x-button>
+                        @else
+                            <x-button :href="route('contact').'#enquiry'" variant="dark" size="lg" icon="shopping-bag" class="flex-1">Request a Quote</x-button>
+                        @endif
                     </div>
                     <div class="flex gap-3">
-                        <x-button variant="outline-dark" size="lg" icon="arrow-right" class="flex-1" @click="$store.ui.buyNow()">Buy Now</x-button>
+                        @if ($product['price'])
+                            <x-button variant="outline-dark" size="lg" icon="arrow-right" class="flex-1" ::disabled="$store.ui.bagBusy" @click="$store.ui.buyNow({{ Js::from($product['slug']) }}, qty)">Buy Now</x-button>
+                        @else
+                            <x-button :href="route('contact').'#enquiry'" variant="outline-dark" size="lg" icon="arrow-right" class="flex-1">Ask About This Piece</x-button>
+                        @endif
                         <button type="button" class="icon-btn h-14 w-14 ring-1 ring-ink/15" @click="$store.ui.toggleWish('{{ $product['slug'] }}')" aria-label="Save to wishlist">
                             <x-icon name="heart" ::class="$store.ui.isWished('{{ $product['slug'] }}') && 'fill-current text-[#a5503f]'" />
                         </button>
                     </div>
-                    <p class="text-sm text-ink/55">Need a custom size or finish? <a href="{{ route('contact') }}#enquiry" class="link-line is-static text-ink">Talk to the studio</a></p>
+                    <p class="text-sm text-ink/55">Need a custom size, colour or personalisation? <a href="{{ route('contact') }}#enquiry" class="link-line is-static text-ink">Request a quote</a></p>
                 </div>
 
                 {{-- Accordions --}}
@@ -126,18 +134,22 @@
                                 <div class="pb-6 text-[15px] leading-relaxed text-ink/70">
                                     @switch($key)
                                         @case('description')
-                                            <p>{{ $product['name'] }} is part of our {{ strtolower($product['category_name']) }} range. Its form is developed digitally, printed in fine layers and refined by hand — sanding, priming and finishing — so the printed structure becomes a considered, tactile surface.</p>
+                                            @if (! empty($product['description']))
+                                                <p class="whitespace-pre-line">{{ $product['description'] }}</p>
+                                            @else
+                                                <p>{{ $product['name'] }} is part of our {{ strtolower($product['category_name']) }} range. It is modelled in CAD and printed layer by layer on our FDM print farm in Sholinganallur, Chennai. Painting is available for selected pieces.</p>
+                                            @endif
                                             @break
                                         @case('specifications')
                                             <dl class="divide-y divide-ink/10">
-                                                @foreach (['Category' => $product['category_name'], 'Process' => 'Additive manufacturing, hand finished', 'Finish' => 'Selectable — see options above', 'Weight' => $product['weight'], 'Made' => 'To order, in studio'] as $term => $value)
+                                                @foreach (['Category' => $product['category_name'], 'Process' => 'FDM 3D printing', 'Finish' => 'Confirmed when you order', 'Weight' => $product['weight'], 'Made' => 'To order, in Chennai'] as $term => $value)
                                                     <div class="flex justify-between gap-6 py-2.5"><dt class="text-smoke">{{ $term }}</dt><dd class="text-right text-ink">{{ $value }}</dd></div>
                                                 @endforeach
                                             </dl>
                                             @break
                                         @case('materials')
                                             <p>{{ $product['material'] }}.</p>
-                                            <p class="mt-3">Indoor display piece. Dust with a soft, dry brush; avoid prolonged direct sunlight and moisture to preserve the finish.</p>
+                                            <p class="mt-3">Material and finish can be discussed before ordering, based on how and where the piece will be used.</p>
                                             @break
                                         @case('dimensions')
                                             <p class="display text-3xl text-ink">{{ $product['dimensions'] }}</p>
@@ -158,9 +170,9 @@
 <section class="bg-ink text-bone">
     <div class="container-x grid gap-px py-24 md:grid-cols-2 lg:py-32">
         <div class="md:pr-10">
-            <x-eyebrow class="text-brass">Crafted layer by layer</x-eyebrow>
-            <h2 class="display mt-8 max-w-lg text-display-3" data-split>From digital model <em>to finished form.</em></h2>
-            <p class="mt-8 max-w-md leading-relaxed text-bone/60" data-reveal>Every piece begins as a sculpted 3D model, refined for proportion and printability, then built in fine layers and finished by hand in the studio.</p>
+            <x-eyebrow class="text-brass">Printed layer by layer</x-eyebrow>
+            <h2 class="display mt-8 max-w-lg text-display-3" data-split>From CAD model <em>to finished part.</em></h2>
+            <p class="mt-8 max-w-md leading-relaxed text-bone/60" data-reveal>Every piece begins as a 3D model, prepared for printing and built layer by layer on our FDM print farm, with painting available for selected parts.</p>
         </div>
         <div class="mt-12 grid grid-cols-2 gap-4 md:mt-0">
             <figure data-reveal>

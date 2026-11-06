@@ -11,8 +11,8 @@
     <h1 class="display mt-6 text-display-3" data-split data-split-immediate data-delay="0.2">Create your <em>account.</em></h1>
     <p class="mt-5 leading-relaxed text-ink/65" data-reveal data-delay="0.4">One account for orders, wishlists and custom projects.</p>
 
-    <form x-data="authForm('register', { redirect: @js(route('account')) })" @submit.prevent="submit" novalidate
-          method="POST" action="{{ route('register') }}" class="mt-12 space-y-8" data-reveal data-delay="0.5">
+    <form x-data="authForm('register')" @submit.prevent="submit" novalidate
+          method="POST" action="{{ route('register.store') }}" class="mt-12 space-y-8" data-reveal data-delay="0.5">
         @csrf
         <x-form-field name="name" label="Full name" autocomplete="name" />
         <div class="grid gap-8 sm:grid-cols-2">
@@ -44,6 +44,5 @@
         <a href="{{ route('login') }}" class="link-line is-static ml-1 font-semibold text-ink">Sign in</a>
     </div>
 
-    <x-preview-note class="mt-10" />
 </x-auth-shell>
 @endsection

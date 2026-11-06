@@ -1,8 +1,8 @@
 {{-- Sign-in form shared by the login page and the account drawer. --}}
 @props(['idPrefix' => ''])
 
-<form x-data="authForm('login', { redirect: @js(route('account')) })" @submit.prevent="submit" novalidate
-      method="POST" action="{{ route('login') }}" {{ $attributes->class('space-y-8') }}>
+<form x-data="authForm('login')" @submit.prevent="submit" novalidate
+      method="POST" action="{{ route('login.store') }}" {{ $attributes->class('space-y-8') }}>
     @csrf
     <x-form-field name="email" label="Email address" type="email" autocomplete="email" :id-prefix="$idPrefix" />
     <x-form-field name="password" label="Password" type="password" autocomplete="current-password" :id-prefix="$idPrefix" />
